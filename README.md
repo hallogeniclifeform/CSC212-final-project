@@ -55,9 +55,15 @@ final grade for CSC 212</strong>
 </ol>
 
 <h4>Linked Representation</h4>
-                        
+                      
+                      
+                      
 <p>In linked representation, we use a linked list data structure to represent a sparse matrix. In this linked list, we use two different nodes namely <strong>header node</strong> and <strong>element node</strong>. Header node consists of three fields and element node consists of five fields as shown in the image...</p>
                                                
+<center><img src="images/Linked_Representation_Nodes.png" class="bsc-img-md" alt="Linked Represenation of sparse matrix"/></center>
+                        
 <p>Consider the above same sparse matrix used in the Triplet representation. This sparse matrix can be represented using linked representation as shown in the below image...</p>
                         
+<center><img src="images/Linked_Representation_of_Sparse_Matrix.png" class="bsc-img-md" alt="Linked Represntation of Sparse Matrix"/></center>
+                          
 <p>In the above representation, H0, H1,..., H5 indicates the header nodes which are used to represent indexes. Remaining nodes are used to represent non-zero elements in the matrix, except the very first node which is used to represent abstract information of the sparse matrix (i.e., It is a matrix of 5 X 6 with 6 non-zero elements).<br /><br />In this representation, in each row and column, the last node right field points to its respective header node.</p>
