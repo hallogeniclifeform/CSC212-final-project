@@ -18,10 +18,9 @@
 
 <h2>Grading:</h2>
 <ul>
-  <li>Source code design and organization (25%)</li>
-  <li>Correctness (30%)</li>
-  <li>Presentation (20%)</li>
-  <li>Project Report (25%)</li>
+  <li>Source Code (20%)</li>
+  <li>Presentation (40%)</li>
+  <li>Project Report (40%)</li>
 </ul>
 <p>
   <strong>Outstanding projects may be granted a straight A as the
