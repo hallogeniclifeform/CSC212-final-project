@@ -71,6 +71,8 @@ void LinkedList::remove(int data){
         tmp = tmp->next;
     }
 
+    //Hunter's code
+    
     if(tmp != nullptr){
         prev->next = tmp->next;
         // Without this, the Node destructor will delete
