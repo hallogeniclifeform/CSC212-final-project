@@ -11,9 +11,7 @@ class Matrix{
         Matrix();
         ~Matrix();
 
-        void push_front(int data);
-        void push_back(int data);
-        void insert(int data, int idx);
+        void insert(int data, int row, int col);
         void remove(int data);
         bool contains(int data);
         int get_size();

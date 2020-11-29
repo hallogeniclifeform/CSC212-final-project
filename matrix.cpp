@@ -1,47 +1,22 @@
-#include "linked-list.h"
+#include "matrix.h"
 #include <iostream>
 
-LinkedList::LinkedList(){
+Matrix::Matrix(){
     this->head = nullptr;
     this->size = 0;
 }
 
-LinkedList::~LinkedList(){
+Matrix::~Matrix(){
     if (this->head){
         delete this->head;
     }
 }
 
-void LinkedList::push_front(int data){
-    if(this->head == nullptr){
-        this->head = new Node(data);
-    }else{
-        Node* tmp = new Node(data, this->head);
-        //tmp->next = this->head;
-        this->head = tmp;
-    }
-    this->size++;
-}
-
-void LinkedList::push_back(int data){
-    if(this->head == nullptr){
-        this->head = new Node(data);
-    }else{
-        Node* tmp = this->head;
-
-        /*while(tmp->next != nullptr){
-            tmp = tmp->next;
-        }*/
 
 
-        tmp->next = new Node(data);
-    }
 
-    this->size++;
-}
-
-void LinkedList::insert(int data, int idx){
-    if(!this->head){    // this->head == nullptr
+void Matrix::insert(int data, int row, int col){
+    /*if(!this->head){    // this->head == nullptr
         this->head = new Node(data);
     }else if(idx == 0){
         this->push_front(data);
@@ -52,32 +27,32 @@ void LinkedList::insert(int data, int idx){
     }else{
         Node* tmp = this->head;
         while(idx > 1){
-            tmp = tmp->next;
+            tmp = tmp->right;
             idx--;
         }
         Node* tmp2 = new Node(data);
-        tmp2->next = tmp->next;
-        tmp->next = tmp2;
-    }
+        tmp2->right = tmp->right;
+        tmp->right = tmp2;
+    }*/
     this->size++;
 }
 
-void LinkedList::remove(int data){
+void Matrix::remove(int data){
     Node* tmp = this->head;
     Node* prev = nullptr;
 
     while(tmp != nullptr && tmp->data != data){
         prev = tmp;
-        tmp = tmp->next;
+        tmp = tmp->right;
     }
 
     //Hunter's code
     
     if(tmp != nullptr){
-        prev->next = tmp->next;
+        prev->right = tmp->right;
         // Without this, the Node destructor will delete
         // every element in the list after 'temp'
-        tmp->next = nullptr;
+        tmp->right = nullptr;
         delete tmp;
 
         this->size--;
@@ -86,30 +61,30 @@ void LinkedList::remove(int data){
     }
 }
 
-bool LinkedList::contains(int data){
+bool Matrix::contains(int data){
     Node* tmp = this->head;
 
     while(tmp != nullptr){
         if(tmp->data == data){
             return true;
         }
-        tmp = tmp->next;
+        tmp = tmp->right;
     }
 
     return false;
 }
 
-int LinkedList::get_size(){
+int Matrix::get_size(){
     return this->size;
 }
 
-std::string LinkedList::to_string(){
+std::string Matrix::to_string(){
     std::string stringified;
     Node* tmp = this->head;
 
     while(tmp != nullptr){
         stringified += std::to_string(tmp->data) + " ";
-        tmp = tmp->next;
+        tmp = tmp->right;
     }
 
     return stringified;
