@@ -2,14 +2,14 @@
 #include <vector>
 #include <string>
 
-class LinkedList{
+class Matrix{
     private:
         Node* head;
         unsigned int size;
 
     public:
-        LinkedList();
-        ~LinkedList();
+        Matrix();
+        ~Matrix();
 
         void push_front(int data);
         void push_back(int data);
