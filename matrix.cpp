@@ -25,23 +25,22 @@ void Matrix::push_front(int data){
 }*/
 
 
-/*
-void Matrix::push_back(int data){
+
+void Matrix::push_back(int data, int row, int col){
     if(this->head == nullptr){
-        this->head = new Node(data);
+        this->head = new Node(data, row, col);
     }else{
-        Node* tmp = this->head;
-        tmp->next = new Node(data);
+        this->head->next = new Node(data, row, col);
     }
 
     this->size++;
-}*/
+}
 
 /*
 void Matrix::insert(int data, int row, int col){
     if(!this->head){    // this->head == nullptr
-        this->head = new Node(data, row, col);
-    }else if(row == 0){
+        this->head = new Node(data, idx, col);
+    }else if(idx == 0){
         this->push_front(data);
         return;
     }else if(this->size < idx){

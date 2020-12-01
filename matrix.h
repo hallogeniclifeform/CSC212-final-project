@@ -13,7 +13,7 @@ class Matrix{
         Matrix(int data,int vec);
         
         void push_front(int data);
-        void push_back(int data);
+        void push_back(int data, int row, int col);
         void insert(int data, int idx);
         void remove(int data);
         bool contains(int data);
