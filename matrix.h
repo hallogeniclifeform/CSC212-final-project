@@ -5,15 +5,19 @@
 class Matrix{
     private:
         Node* head;
-        unsigned int size;
-
+        int size;
+        
     public:
-        Matrix();
-        ~Matrix();
-
-        void insert(int data, int row, int col);
+        Matrix(); //this->head = nullptr;
+        Matrix(int data);
+        Matrix(int data,int vec);
+        
+        void push_front(int data);
+        void push_back(int data);
+        void insert(int data, int idx);
         void remove(int data);
         bool contains(int data);
         int get_size();
         std::string to_string();
+        //etc
 };

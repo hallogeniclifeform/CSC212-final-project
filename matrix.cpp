@@ -1,3 +1,4 @@
+#include "node.h"
 #include "matrix.h"
 #include <iostream>
 
@@ -12,11 +13,30 @@ Matrix::~Matrix(){
     }
 }
 
+void Matrix::push_front(int data){
+    if(this->head == nullptr){
+        this->head = new Node(data);
+    }else{
+        Node* tmp = new Node(data, this->head);
+        //tmp->next = this->head;
+        this->head = tmp;
+    }
+    this->size++;
+}
 
+void Matrix::push_back(int data){
+    if(this->head == nullptr){
+        this->head = new Node(data);
+    }else{
+        Node* tmp = this->head;
+        tmp->next = new Node(data);
+    }
 
+    this->size++;
+}
 
-void Matrix::insert(int data, int row, int col){
-    /*if(!this->head){    // this->head == nullptr
+void Matrix::insert(int data, int idx){
+    if(!this->head){    // this->head == nullptr
         this->head = new Node(data);
     }else if(idx == 0){
         this->push_front(data);
@@ -27,13 +47,13 @@ void Matrix::insert(int data, int row, int col){
     }else{
         Node* tmp = this->head;
         while(idx > 1){
-            tmp = tmp->right;
+            tmp = tmp->next;
             idx--;
         }
         Node* tmp2 = new Node(data);
-        tmp2->right = tmp->right;
-        tmp->right = tmp2;
-    }*/
+        tmp2->next = tmp->next;
+        tmp->next = tmp2;
+    }
     this->size++;
 }
 
@@ -43,16 +63,14 @@ void Matrix::remove(int data){
 
     while(tmp != nullptr && tmp->data != data){
         prev = tmp;
-        tmp = tmp->right;
+        tmp = tmp->next;
     }
 
-    //Hunter's code
-    
     if(tmp != nullptr){
-        prev->right = tmp->right;
+        prev->next = tmp->next;
         // Without this, the Node destructor will delete
         // every element in the list after 'temp'
-        tmp->right = nullptr;
+        tmp->next = nullptr;
         delete tmp;
 
         this->size--;
@@ -68,7 +86,7 @@ bool Matrix::contains(int data){
         if(tmp->data == data){
             return true;
         }
-        tmp = tmp->right;
+        tmp = tmp->next;
     }
 
     return false;
@@ -84,7 +102,7 @@ std::string Matrix::to_string(){
 
     while(tmp != nullptr){
         stringified += std::to_string(tmp->data) + " ";
-        tmp = tmp->right;
+        tmp = tmp->next;
     }
 
     return stringified;
