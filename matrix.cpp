@@ -12,7 +12,7 @@ Matrix::~Matrix(){
         delete this->head;
     }
 }
-
+/*
 void Matrix::push_front(int data){
     if(this->head == nullptr){
         this->head = new Node(data);
@@ -22,8 +22,10 @@ void Matrix::push_front(int data){
         this->head = tmp;
     }
     this->size++;
-}
+}*/
 
+
+/*
 void Matrix::push_back(int data){
     if(this->head == nullptr){
         this->head = new Node(data);
@@ -33,12 +35,13 @@ void Matrix::push_back(int data){
     }
 
     this->size++;
-}
+}*/
 
-void Matrix::insert(int data, int idx){
+/*
+void Matrix::insert(int data, int row, int col){
     if(!this->head){    // this->head == nullptr
-        this->head = new Node(data);
-    }else if(idx == 0){
+        this->head = new Node(data, row, col);
+    }else if(row == 0){
         this->push_front(data);
         return;
     }else if(this->size < idx){
@@ -55,7 +58,7 @@ void Matrix::insert(int data, int idx){
         tmp->next = tmp2;
     }
     this->size++;
-}
+}*/
 
 void Matrix::remove(int data){
     Node* tmp = this->head;

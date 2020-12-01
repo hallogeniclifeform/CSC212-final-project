@@ -11,12 +11,12 @@ Node::~Node(){
     }
 }
 
-Node::Node(int data){
+Node::Node(int data, int row, int col){
     this->data = data;
     this->next = nullptr;
 }
 
-Node::Node(int data, Node* next){
+Node::Node(int data, int row, int col, Node* next){
     this->data = data;
     this->next = next;
 }
