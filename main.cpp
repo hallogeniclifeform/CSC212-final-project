@@ -58,5 +58,5 @@ int main(int argc, char** argv){
     //of the two matrices. For everything else it adds correctly, but for values in the first column/first row it simply
     //lists both values seperately. Probabaly something in the first if statement. 
 
-    //Also added a cout statement in the To_string function as well as added some stuff to main.
+    //Also added a cout statement in the To_string function as well as added some stuff to main
 
