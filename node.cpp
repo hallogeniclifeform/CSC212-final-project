@@ -22,3 +22,19 @@ Node::Node(int data, int row, int col){
     this->data = data;
     this->next = next;
 }*/
+
+int Node::get_data() {
+    return this->data;
+}
+
+int Node::get_row() {
+    return this->row;
+}
+
+int Node::get_col() {
+    return this->col;
+}
+
+Node* Node::get_next() {
+    return this->next;
+}

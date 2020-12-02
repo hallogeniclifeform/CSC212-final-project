@@ -3,6 +3,7 @@
 #include "matrix.h"
 #include "matrixMath.h"
 
+Matrix add_matrix(Matrix mat1, Matrix mat2);
 
 int main(int argc, char** argv){
     int sparse_array_one[4][4] =
@@ -19,7 +20,7 @@ int main(int argc, char** argv){
 
     Matrix matrix_one = Matrix();
     Matrix matrix_two = Matrix();
-    Matrix matrix_three = Matrix();
+    Matrix sum = Matrix();
 
     for(int i = 0; i < 4; i++){
         for(int j = 0; j < 4; j++){
@@ -32,7 +33,7 @@ int main(int argc, char** argv){
         }
     }
 
-    matrix_three.add_matrix(matrix_one, matrix_two);
+    //sum.add_matrix(matrix_one, matrix_two);
 
     
 
@@ -47,7 +48,7 @@ int main(int argc, char** argv){
 
     std::cout << "This is the amount of non-zero elements in sparse matrix one: " << size_one << std::endl;
     std::cout << "This is the amount of non-zero elements in sparse matrix two: " << size_two << std::endl;*/
-}
+
 
 
 
@@ -62,3 +63,34 @@ int main(int argc, char** argv){
 }
 
 
+Matrix add_matrix(Matrix mat1, Matrix mat2){
+    Matrix sum = Matrix();
+    Node* temp1 = mat1.get_head();
+    Node* temp2 = mat2.get_head();
+
+    while(temp1 != nullptr && temp2 !=nullptr){
+        if((temp1->get_row() == temp2->get_row()) && (temp1->get_col() && temp2->get_col())){
+            sum.push_back((temp1->get_data() + temp2->get_data()), temp1->get_row(), temp1->get_col());
+            temp1 = temp1->get_next();
+            temp2 = temp2->get_next();
+        }else if(temp1->get_row() == temp2->get_row()){
+            if(temp1->get_col() < temp2->get_col()){
+                sum.push_back(temp1->get_data(), temp1->get_row(), temp1->get_col());
+                temp1 = temp1->get_next();
+            }else{
+                sum.push_back(temp2->get_data(), temp2->get_row(), temp2->get_col());
+                temp2 = temp2->get_next();
+            }
+        }else if(temp1->get_row() != temp2->get_row()){
+            if(temp1->get_row() < temp2->get_row()){
+                sum.push_back(temp1->get_data(), temp1->get_row(), temp1->get_col());
+                temp1 = temp1->get_next();
+            }else{
+                sum.push_back(temp2->get_data(), temp2->get_row(), temp2->get_col());
+                temp2 = temp2->get_next();
+            }
+        }
+    }
+    return sum;
+   
+}

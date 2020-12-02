@@ -22,6 +22,7 @@ class Matrix{
         void remove(int data);
         bool contains(int data);
         int get_size();
+        Node* get_head();
         std::string to_string();
         //etc
 };

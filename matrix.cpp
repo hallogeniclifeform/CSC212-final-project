@@ -5,8 +5,6 @@
 Matrix::Matrix(){
     this->head = nullptr;
     this->size = 0;
-    this->rows = 1;
-    this->cols = 1;
 }
 
 Matrix::~Matrix(){
@@ -34,7 +32,11 @@ void Matrix::push_back(int data, int row, int col){
     this->size++;
 }
 
-void Matrix::add_matrix(Matrix matrix_one, Matrix matrix_two){
+Node* Matrix::get_head() {
+    return this->head;
+}
+
+/*void Matrix::add_matrix(Matrix matrix_one, Matrix matrix_two){
     Matrix matrix_three = Matrix();
     Node* temp1 = matrix_one.head;
     Node* temp2 = matrix_two.head;
@@ -64,7 +66,7 @@ void Matrix::add_matrix(Matrix matrix_one, Matrix matrix_two){
     }
     matrix_three.to_string();
    
-}
+}*/
 
 /*
 void Matrix::insert(int data, int row, int col){
@@ -127,28 +129,7 @@ int Matrix::get_size(){
     return this->size;
 }
 
-int Matrix::get_rows(){
-    Node* tmp = this->head;
-    for (int i=0; i<this->size; i++){
-        if (tmp->row > this->rows){
-            this->rows = tmp->row;
-        }
-    }
-    
-    return this->rows;
-}
 
-int Matrix::get_cols(){
-    Node* tmp = this->head;
-    for (int i=0; i<this->size; i++){
-        if (tmp->col > this->cols){
-            this->cols = tmp->col;
-        }
-    }
-    
-    return this->cols;
-
-}
 
 std::string Matrix::to_string(){
     std::string stringified;
