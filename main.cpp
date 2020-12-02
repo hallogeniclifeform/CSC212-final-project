@@ -2,6 +2,7 @@
 #include <string>
 #include "matrix.h"
 
+
 int main(int argc, char** argv){
     int sparse_matrix[4][4] =
     {{0, 0, 0, 6},

@@ -32,7 +32,14 @@ void Matrix::push_back(int data, int row, int col){
         this->head = new Node(data, row, col);
     }else{
         Node* tmp = this->head;
+        while (tmp->next != nullptr) {
+            tmp = tmp->next;
+        }
         tmp->next = new Node(data, row, col);
+        /*Node* tmp = this->head;
+        tmp->next = new Node(data, row, col);*/
+        //^^ as this was, it was taking the head and replacing the head's next with the new one//
+
     }
 
     this->size++;
