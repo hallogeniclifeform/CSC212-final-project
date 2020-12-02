@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include "matrix.h"
+#include "matrixMath.h"
 
 
 int main(int argc, char** argv){
@@ -53,10 +54,11 @@ int main(int argc, char** argv){
     
     
     //12/2/2020 3:33 am
-
-    //added a add fucntion for the matrices, seems to work for all values that are not in the first column or last row
+    //added a add fucntion in matrix.cpp, we can try to fit it in a math.h file for the matrices, seems to work for all values that are not in the first column or last row
     //of the two matrices. For everything else it adds correctly, but for values in the first column/first row it simply
     //lists both values seperately. Probabaly something in the first if statement. 
 
-    //Also added a cout statement in the To_string function as well as added some stuff to main
+
+}
+
 

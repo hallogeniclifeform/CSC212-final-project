@@ -5,6 +5,8 @@
 Matrix::Matrix(){
     this->head = nullptr;
     this->size = 0;
+    this->rows = 1;
+    this->cols = 1;
 }
 
 Matrix::~Matrix(){
@@ -12,18 +14,6 @@ Matrix::~Matrix(){
         delete this->head;
     }
 }
-
-/*
-void Matrix::push_front(int data){
-    if(this->head == nullptr){
-        this->head = new Node(data);
-    }else{
-        Node* tmp = new Node(data, this->head);
-        //tmp->next = this->head;
-        this->head = tmp;
-    }
-    this->size++;
-}*/
 
 
 
@@ -137,13 +127,37 @@ int Matrix::get_size(){
     return this->size;
 }
 
+int Matrix::get_rows(){
+    Node* tmp = this->head;
+    for (int i=0; i<this->size; i++){
+        if (tmp->row > this->rows){
+            this->rows = tmp->row;
+        }
+    }
+    
+    return this->rows;
+}
+
+int Matrix::get_cols(){
+    Node* tmp = this->head;
+    for (int i=0; i<this->size; i++){
+        if (tmp->col > this->cols){
+            this->cols = tmp->col;
+        }
+    }
+    
+    return this->cols;
+
+}
 
 std::string Matrix::to_string(){
     std::string stringified;
     Node* tmp = this->head;
 
+
+
     while(tmp != nullptr){
-        stringified += std::to_string(tmp->data) + " ";
+        stringified += std::to_string(tmp->data) + " " + std::to_string(tmp->row) + " " + std::to_string(tmp->col);
         tmp = tmp->next;
     }
 
