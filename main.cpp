@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include "matrix.h"
+#include "matrixMath.h"
 
 
 int main(int argc, char** argv){
@@ -23,6 +24,7 @@ int main(int argc, char** argv){
             
         }
     }
+
 
 
 
