@@ -20,7 +20,6 @@ int main(int argc, char** argv){
 
     Matrix matrix_one = Matrix();
     Matrix matrix_two = Matrix();
-    Matrix sum = Matrix();
 
     for(int i = 0; i < 4; i++){
         for(int j = 0; j < 4; j++){
@@ -33,7 +32,9 @@ int main(int argc, char** argv){
         }
     }
 
-    //sum.add_matrix(matrix_one, matrix_two);
+    Matrix sum = add_matrix(matrix_one, matrix_two);
+    std::string sum_string = sum.to_string();
+    std::cout << sum_string << std::endl;
 
     
 
