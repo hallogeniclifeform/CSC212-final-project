@@ -41,8 +41,39 @@ void Matrix::push_back(int data, int row, int col){
         //^^ as this was, it was taking the head and replacing the head's next with the new one//
 
     }
-
     this->size++;
+}
+
+void Matrix::add_matrix(Matrix matrix_one, Matrix matrix_two){
+    Matrix matrix_three = Matrix();
+    Node* temp1 = matrix_one.head;
+    Node* temp2 = matrix_two.head;
+
+    while(temp1 != nullptr && temp2 !=nullptr){
+        if((temp1->row == temp2->row) && (temp1->col && temp2->col)){
+            matrix_three.push_back((temp1->data + temp2->data), temp1->row, temp1->col);
+            temp1 = temp1->next;
+            temp2 = temp2->next;
+        }else if(temp1->row == temp2->row){
+            if(temp1->col < temp2->col){
+                matrix_three.push_back(temp1->data, temp1->row, temp1->col);
+                temp1 = temp1->next;
+            }else{
+                matrix_three.push_back(temp2->data, temp2->row, temp2->col);
+                temp2 = temp2->next;
+            }
+        }else if(temp1->row != temp2->row){
+            if(temp1->row < temp2->row){
+                matrix_three.push_back(temp1->data, temp1->row, temp1->col);
+                temp1 = temp1->next;
+            }else{
+                matrix_three.push_back(temp2->data, temp2->row, temp2->col);
+                temp2 = temp2->next;
+            }
+        }
+    }
+    matrix_three.to_string();
+   
 }
 
 /*
@@ -66,9 +97,9 @@ void Matrix::insert(int data, int row, int col){
         tmp->next = tmp2;
     }
     this->size++;
-}*/
+}
 
-void Matrix::remove(int data){
+ void Matrix::remove(int data){
     Node* tmp = this->head;
     Node* prev = nullptr;
 
@@ -89,8 +120,7 @@ void Matrix::remove(int data){
         std::cout << data << " does not exist!" << std::endl;
     }
 }
-
-bool Matrix::contains(int data){
+ bool Matrix::contains(int data){
     Node* tmp = this->head;
 
     while(tmp != nullptr){
@@ -102,10 +132,11 @@ bool Matrix::contains(int data){
 
     return false;
 }
-
+*/
 int Matrix::get_size(){
     return this->size;
 }
+
 
 std::string Matrix::to_string(){
     std::string stringified;
@@ -116,6 +147,8 @@ std::string Matrix::to_string(){
         tmp = tmp->next;
     }
 
+    std::cout << stringified << std::endl;
     return stringified;
 }
+
 
