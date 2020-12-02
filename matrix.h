@@ -9,6 +9,7 @@ class Matrix{
         
     public:
         Matrix(); //this->head = nullptr;
+        ~Matrix(); 
         Matrix(int data);
         Matrix(int data,int vec);
         

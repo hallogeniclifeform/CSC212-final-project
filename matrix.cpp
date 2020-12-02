@@ -12,6 +12,7 @@ Matrix::~Matrix(){
         delete this->head;
     }
 }
+
 /*
 void Matrix::push_front(int data){
     if(this->head == nullptr){
@@ -30,7 +31,8 @@ void Matrix::push_back(int data, int row, int col){
     if(this->head == nullptr){
         this->head = new Node(data, row, col);
     }else{
-        this->head->next = new Node(data, row, col);
+        Node* tmp = this->head;
+        tmp->next = new Node(data, row, col);
     }
 
     this->size++;
@@ -109,3 +111,4 @@ std::string Matrix::to_string(){
 
     return stringified;
 }
+
