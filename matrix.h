@@ -6,13 +6,15 @@ class Matrix{
     private:
         Node* head;
         int size;
-        
+        int rows;
+        int cols;
+
     public:
         Matrix(); //this->head = nullptr;
-        ~Matrix(); 
+        ~Matrix();
         Matrix(int data);
-        Matrix(int data,int vec);
-        
+        Matrix(int rows, int cols);
+
         //void push_front(int data);
         void push_back(int data, int row, int col);
 
@@ -22,7 +24,10 @@ class Matrix{
         void remove(int data);
         bool contains(int data);
         int get_size();
+        int get_rows();
+        int get_cols();
         Node* get_head();
         std::string to_string();
+
         //etc
 };

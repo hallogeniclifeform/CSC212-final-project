@@ -1,6 +1,6 @@
 #include <vector>
 #include <string>
-#include "matrix.h"
+
 
 class MatrixMath{
     private:
@@ -19,7 +19,7 @@ class MatrixMath{
             Matrix product;
 
             //do math here
-            
+
 
 
             return product;

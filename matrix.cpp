@@ -5,12 +5,19 @@
 Matrix::Matrix(){
     this->head = nullptr;
     this->size = 0;
+    this->rows = 0;
+    this->cols = 0;
+}
+
+Matrix::Matrix(int rows, int cols) {
+    this->head = nullptr;
+    this->size = 0;
+    this->rows = rows;
+    this->cols = cols;
 }
 
 Matrix::~Matrix(){
-    if (this->head){
-        delete this->head;
-    }
+
 }
 
 
@@ -24,10 +31,6 @@ void Matrix::push_back(int data, int row, int col){
             tmp = tmp->next;
         }
         tmp->next = new Node(data, row, col);
-        /*Node* tmp = this->head;
-        tmp->next = new Node(data, row, col);*/
-        //^^ as this was, it was taking the head and replacing the head's next with the new one//
-
     }
     this->size++;
 }
@@ -65,7 +68,7 @@ Node* Matrix::get_head() {
         }
     }
     matrix_three.to_string();
-   
+
 }*/
 
 /*
@@ -129,6 +132,14 @@ int Matrix::get_size(){
     return this->size;
 }
 
+int Matrix::get_rows() {
+    return this->rows;
+}
+
+int Matrix::get_cols() {
+    return this->cols;
+}
+
 
 
 std::string Matrix::to_string(){
@@ -138,7 +149,7 @@ std::string Matrix::to_string(){
 
 
     while(tmp != nullptr){
-        stringified += std::to_string(tmp->data) + " " + std::to_string(tmp->row) + " " + std::to_string(tmp->col);
+        stringified += std::to_string(tmp->data) + " "; // + std::to_string(tmp->row) + " " + std::to_string(tmp->col) << " ";
         tmp = tmp->next;
     }
 
