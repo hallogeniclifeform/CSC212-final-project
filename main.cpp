@@ -172,7 +172,9 @@ Matrix mult_matrix(Matrix mat1, Matrix mat2) {
     }
 
     // TODO: arrange 1d prod_mat into a 2d array
+    
 
+    // TODO: push 2d product array to the product matrix linkedlist;
 
 
     return product;
