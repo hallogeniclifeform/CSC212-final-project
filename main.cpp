@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <vector>
 #include "matrix.h"
 #include "matrixMath.h"
 
@@ -101,4 +102,63 @@ Matrix add_matrix(Matrix mat1, Matrix mat2){
     }
     return sum;
 
+}
+
+
+Matrix mult_matrix(Matrix mat1, Matrix mat2) {
+    Matrix product;
+
+    Node* temp1 = mat1.get_head();
+    Node* temp2 = mat2.get_head();
+
+    std::vector< std::vector<int> > mat1_rows;
+    std::vector< std::vector<int> > mat2_cols;
+    std::vector<int> topush_rows;
+    std::vector<int> topush_cols;
+    std::vector<int> prod_mat;
+    int val;    
+
+
+    if (mat1.get_rows() != mat2.get_cols() || mat1.get_cols() != mat2.get_rows()){
+        std::cout << "Improper matrix dimensions for multiplication" << std::endl;
+        return product;
+    }
+
+    for (int i=0; i<mat1.get_rows(); i++){
+        while(temp1 != nullptr) {
+            if(temp1->get_row() == i) {
+                topush_rows.push_back(temp1->get_row());
+            } else {
+                topush_rows.push_back(0);
+            }
+            if(temp2->get_col() == i) {
+                topush_cols.push_back(temp2->get_col());
+            } else {
+                topush_cols.push_back(0);
+            }
+            mat1_rows.push_back(topush_rows);
+            mat2_cols.push_back(topush_cols);
+        }
+    }
+
+    //i corresponts to a(row) and b(col)
+    //j corresponds to idx of a(row) and b(col)
+    //a[0][0]*b[0][0] + a[0][1]*b[1][0] + a[0][2]*b[2][0]
+    //val += a[i][j]*b[j][i]
+
+    for (int i=0; i<mat1_rows.size(); i++){
+        val = 0;
+        for (int j=0; j<mat1_rows[i].size(); j++){
+            val += mat1_rows[i][j]*mat2_cols[j][i];
+        }
+        prod_mat.push_back(val);
+    }
+
+    // TODO: arrange 1d prod_mat into a 2d array
+    
+
+    // TODO: push 2d product array to the product matrix linkedlist;
+
+
+    return product;
 }
