@@ -142,19 +142,47 @@ int Matrix::get_cols() {
 
 
 
-std::string Matrix::to_string(){
-    std::string stringified;
-    Node* tmp = this->head;
+void Matrix::to_string(int rows, int cols){
+    //std::string stringified;
+    int print_array[rows][cols];
+    Node* temp = this->head;
 
-
-
-    while(tmp != nullptr){
-        stringified += std::to_string(tmp->data) + " "; // + std::to_string(tmp->row) + " " + std::to_string(tmp->col) << " ";
-        tmp = tmp->next;
+    for(int i = 0; i < rows; i++){
+        for(int j = 0; j < cols; j++){
+            if(temp->row == i && temp->col == j){
+                print_array[i][j] = temp->data;
+                temp = temp->next;
+            }else{
+                print_array[i][j] = 0;
+            }
+        }
     }
 
-    std::cout << stringified << std::endl;
-    return stringified;
+
+
+    //while(temp != nullptr){
+
+
+        //stringified += std::to_string(tmp->data) + " "; // + std::to_string(tmp->row) + " " + std::to_string(tmp->col) << " ";
+        //temp = temp->next;
+    //}
+
+    std::cout << std::endl;
+    std::cout << "Your Matrix: " <<  std::endl;
+
+    for(int i = 0; i < rows; i++){
+        for(int j = 0; j < cols; j++){
+            std::cout << print_array[i][j] << " ";
+        }
+        std::cout << std::endl;
+    }
+
+    //std::cout << rows << " and " << cols << std::endl;
+
+
+
+    //std::cout << stringified << std::endl;
+       
 }
 
 

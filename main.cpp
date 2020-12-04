@@ -6,21 +6,19 @@
 Matrix add_matrix(Matrix mat1, Matrix mat2);
 
 int main(int argc, char** argv){
-    int sparse_array_one[5][4] =
+    int sparse_array_one[4][4] =
     {{0, 0, 0, 6},
     {9, 0, 2, 4},
     {1, 0, 4, 3},
-    {0, 0, 0, 0},
-    {2, 3, 4, 5}};
+    {0, 0, 0, 0}};
 
     int sparse_array_two[4][4] =
     {{0, 0, 0, 0},
     {3, 0, 2, 4},
     {3, 0, 2, 0},
-    {0, 0, 9, 0}
-    };
+    {0, 0, 9, 0}};
 
-    Matrix matrix_one = Matrix(5, 4);
+    Matrix matrix_one = Matrix(4, 4);
     Matrix matrix_two = Matrix(4, 4);
 
     for(int i = 0; i < 5; i++){
@@ -35,7 +33,7 @@ int main(int argc, char** argv){
     }
 
     Matrix sum = add_matrix(matrix_one, matrix_two);
-    std::string sum_string = sum.to_string();
+    sum.to_string(matrix_one.get_rows(), matrix_two.get_cols());
 
 
 
@@ -51,21 +49,7 @@ int main(int argc, char** argv){
     std::cout << "This is the amount of non-zero elements in sparse matrix one: " << size_one << std::endl;
     std::cout << "This is the amount of non-zero elements in sparse matrix two: " << size_two << std::endl;*/
 
-
-
-
-
-
-    //12/2/2020 3:33 am
-    //added a add fucntion in matrix.cpp, we can try to fit it in a math.h file for the matrices, seems to work for all values that are not in the first column or last row
-    //of the two matrices. For everything else it adds correctly, but for values in the first column/first row it simply
-    //lists both values seperately. Probabaly something in the first if statement.
-
-
 }
-
-
-
 
 Matrix add_matrix(Matrix mat1, Matrix mat2){
 
@@ -75,7 +59,6 @@ Matrix add_matrix(Matrix mat1, Matrix mat2){
         std::cout << "Must be same size to add" << std::endl;
         return sum;
     }
-
 
     Node* temp1 = mat1.get_head();
     Node* temp2 = mat2.get_head();
