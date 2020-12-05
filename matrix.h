@@ -27,7 +27,5 @@ class Matrix{
         int get_rows();
         int get_cols();
         Node* get_head();
-        void to_string(int rows, int cols);
-
-        //etc
+        void print_matrix(int rows, int cols, std::string type);
 };

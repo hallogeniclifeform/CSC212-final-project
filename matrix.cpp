@@ -142,8 +142,7 @@ int Matrix::get_cols() {
 
 
 
-void Matrix::to_string(int rows, int cols){
-    //std::string stringified;
+void Matrix::print_matrix(int rows, int cols, std::string type){
     int print_array[rows][cols];
     Node* temp = this->head;
 
@@ -151,39 +150,31 @@ void Matrix::to_string(int rows, int cols){
         for(int j = 0; j < cols; j++){
             if(temp->row == i && temp->col == j){
                 print_array[i][j] = temp->data;
-                //issue might be here with printing matrix
-                temp = temp->next;
+                if(temp->next != nullptr){
+                    temp = temp->next;                    
+                }
             }else{
                 print_array[i][j] = 0;
             }
         }
     }
 
-
-
-    //while(temp != nullptr){
-
-
-        //stringified += std::to_string(tmp->data) + " "; // + std::to_string(tmp->row) + " " + std::to_string(tmp->col) << " ";
-        //temp = temp->next;
-    //}
-
-    std::cout << std::endl;
-    std::cout << "Your Matrix: " <<  std::endl;
+    if(type == "add"){
+        std::cout << std::endl;
+        std::cout << "The Sum of The Two Matrices Is: " <<  std::endl;
+        std::cout << "-------------------------------" << std::endl;
+    }else{
+        std::cout << std::endl;
+        std::cout << "The Product of The Two Matrices Is: " <<  std::endl;
+        std::cout << "-------------------------------" << std::endl;
+    }
 
     for(int i = 0; i < rows; i++){
         for(int j = 0; j < cols; j++){
             std::cout << print_array[i][j] << " ";
         }
         std::cout << std::endl;
-    }
-
-    //std::cout << rows << " and " << cols << std::endl;
-
-
-
-    //std::cout << stringified << std::endl;
-       
+    }       
 }
 
 
