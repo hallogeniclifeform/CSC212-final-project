@@ -151,6 +151,7 @@ void Matrix::to_string(int rows, int cols){
         for(int j = 0; j < cols; j++){
             if(temp->row == i && temp->col == j){
                 print_array[i][j] = temp->data;
+                //issue might be here with printing matrix
                 temp = temp->next;
             }else{
                 print_array[i][j] = 0;
