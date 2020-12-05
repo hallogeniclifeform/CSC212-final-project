@@ -3,44 +3,94 @@
 #include <vector>
 #include "matrix.h"
 #include "matrixMath.h"
+#include <fstream>
+#include <sstream>
 
 Matrix add_matrix(Matrix mat1, Matrix mat2);
 Matrix mult_matrix(Matrix mat1, Matrix mat2);
 
 int main(int argc, char** argv){
-    int sparse_array_one[4][4] =
+    /*std::fstream matrix_file_one(argv[1]);
+    std::fstream matrix_file_two(argv[2]);    
+
+    std::vector<std::vector<int>> sparse_matrix_one;
+    std::vector<std::vector<int>> sparse_matrix_two;
+    std::string tempString;   
+    int num;
+    while(std::getline(matrix_file_one, tempString)){
+        std::vector<int> row;
+        std::stringstream ss(tempString);
+        while(ss >> num){
+            row.push_back(num);
+        }
+        sparse_matrix_one.push_back(row);
+    } 
+    while(std::getline(matrix_file_two, tempString)){
+        std::vector<int> row;
+        std::stringstream ss(tempString);
+        while(ss >> num){
+            row.push_back(num);
+        }
+        sparse_matrix_two.push_back(row);
+    }
+
+    std::cout << sparse_matrix_two[1][2] << std::endl;
+
+    /*for(int i = 0; i < 4; i++){
+        for(int j = 0; j < 4; j++){
+            std::cout << sparse_matrix_one[i][j] << " ";
+
+        }
+        std::cout << std::endl;
+    }
+    std::cout << std::endl;
+
+    for(int i = 0; i < 4; i++){
+        for(int j = 0; j < 4; j++){
+            std::cout << sparse_matrix_two[i][j] << " ";
+            
+        }
+        std::cout << std::endl;
+    }
+    */
+    int sparse_matrix_one[4][4] =
     {{0, 0, 0, 6},
     {9, 0, 2, 4},
     {1, 0, 4, 3},
     {0, 0, 0, 0}};
 
-    int sparse_array_two[4][4] =
+    int sparse_matrix_two[4][4] =
     {{0, 0, 0, 0},
     {3, 0, 2, 4},
     {3, 0, 2, 0},
     {0, 0, 9, 0}};
+    
 
     Matrix matrix_one = Matrix(4, 4);
     Matrix matrix_two = Matrix(4, 4);
 
-    for(int i = 0; i < 5; i++){
+    for(int i = 0; i < 4; i++){
         for(int j = 0; j < 4; j++){
-            if(sparse_array_one[i][j] != 0){
-                matrix_one.push_back(sparse_array_one[i][j], i, j);
+            if(sparse_matrix_one[i][j] != 0){
+                matrix_one.push_back(sparse_matrix_one[i][j], i, j);
             }
-            if(sparse_array_two[i][j] != 0){
-                matrix_two.push_back(sparse_array_two[i][j], i, j);
+            if(sparse_matrix_two[i][j] != 0){
+                matrix_two.push_back(sparse_matrix_two[i][j], i, j);
             }
         }
     }
 
-    //Matrix sum = add_matrix(matrix_one, matrix_two);
-    //sum.to_string(matrix_one.get_rows(), matrix_two.get_cols());
+    /*if (operation_type == "multiply"){
+        Matrix product = mult_matrix(matrix_one, matrix_two);
+        product.to_string(matrix_one.get_rows(), matrix_two.get_cols());
+    }else if (operation_type == "add"){
+        Matrix sum = add_matrix(matrix_one, matrix_two);
+        sum.to_string(matrix_one.get_rows(), matrix_two.get_cols());
+    }*/
 
-    Matrix product = mult_matrix(matrix_one, matrix_two);
-    product.to_string(matrix_one.get_rows(), matrix_two.get_cols());
 
-
+    Matrix sum = add_matrix(matrix_one, matrix_two);
+    sum.to_string(matrix_one.get_rows(), matrix_two.get_cols());
 
     /*std::string my_string_one = matrix_one.to_string();
     std::string my_string_two = matrix_two.to_string();
