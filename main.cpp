@@ -5,6 +5,7 @@
 #include "matrixMath.h"
 
 Matrix add_matrix(Matrix mat1, Matrix mat2);
+Matrix mult_matrix(Matrix mat1, Matrix mat2);
 
 int main(int argc, char** argv){
     int sparse_array_one[4][4] =
@@ -33,8 +34,11 @@ int main(int argc, char** argv){
         }
     }
 
-    Matrix sum = add_matrix(matrix_one, matrix_two);
-    sum.to_string(matrix_one.get_rows(), matrix_two.get_cols());
+    //Matrix sum = add_matrix(matrix_one, matrix_two);
+    //sum.to_string(matrix_one.get_rows(), matrix_two.get_cols());
+
+    Matrix product = mult_matrix(matrix_one, matrix_two);
+    product.to_string(matrix_one.get_rows(), matrix_two.get_cols());
 
 
 
