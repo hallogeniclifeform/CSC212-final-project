@@ -10,40 +10,63 @@ Matrix add_matrix(Matrix mat1, Matrix mat2);
 Matrix mult_matrix(Matrix mat1, Matrix mat2);
 
 int main(int argc, char** argv){
+    
     std::fstream matrix_file_one(argv[1]);
     std::fstream matrix_file_two(argv[2]);
     std::string operation_type = argv[3];        
 
     std::vector<std::vector<int>> sparse_matrix_one;
     std::vector<std::vector<int>> sparse_matrix_two;
+    int row1 = 0; int row2 = 0;
+    int col1 = 0; int col2 = 0;
     std::string tempString;   
     int num;
+    
     while(std::getline(matrix_file_one, tempString)){
         std::vector<int> row;
         std::stringstream ss(tempString);
         while(ss >> num){
             row.push_back(num);
+            col1++;
         }
         sparse_matrix_one.push_back(row);
+        row1++;        
     }
+    col1 /= row1;  
+
 
     while(std::getline(matrix_file_two, tempString)){
         std::vector<int> row;
         std::stringstream ss(tempString);
         while(ss >> num){
             row.push_back(num);
+            col2++;
         }
         sparse_matrix_two.push_back(row);
+        row2++;
     }
+    col2 /= row2;
 
-    Matrix matrix_one = Matrix(4, 4);
-    Matrix matrix_two = Matrix(4, 4);
 
-    for(int i = 0; i < 4; i++){
-        for(int j = 0; j < 4; j++){
+    Matrix matrix_one = Matrix(row1, col1);
+    Matrix matrix_two = Matrix(row2, col2);
+
+    //12/6/2020:
+    // had to split up nested for loop for each matrix because differing sizes of matrices (5x4 matrix and 4x5 matrix) breaks the program
+    // and doesnt even run;
+    // added row1,col1, etc above in main to lessen the amount of hardcoding necessary. 
+    // also added file reading, with command line arguments. first two are the two text files while the third one is operation type. ("add or multiply")
+
+    for(int i = 0; i < row1; i++){
+        for(int j = 0; j < col1; j++){
             if(sparse_matrix_one[i][j] != 0){
                 matrix_one.push_back(sparse_matrix_one[i][j], i, j);
             }
+        }
+    }
+
+    for(int i = 0; i < row2; i++){
+        for(int j = 0; j < col2; j++){
             if(sparse_matrix_two[i][j] != 0){
                 matrix_two.push_back(sparse_matrix_two[i][j], i, j);
             }
@@ -64,7 +87,7 @@ Matrix add_matrix(Matrix mat1, Matrix mat2){
     Matrix sum = Matrix();
 
     if (mat1.get_rows() != mat2.get_rows() || mat1.get_cols() != mat2.get_cols()){
-        std::cout << "Must be same size to add" << std::endl;
+        std::cout << "Matrices must be same size to add" << std::endl;
         return sum;
     }
 
