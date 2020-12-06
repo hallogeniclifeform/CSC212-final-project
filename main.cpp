@@ -12,6 +12,11 @@ Matrix mult_matrix(Matrix mat1, Matrix mat2);
 
 int main(int argc, char** argv){
     
+    if (argc != 4) {
+        std::cout << "USAGE: [file 1] [file 2] [operation type]" << std::endl;
+        exit(1);
+    }
+
     std::fstream matrix_file_one(argv[1]);
     std::fstream matrix_file_two(argv[2]);
     std::string operation_type = argv[3];        
@@ -77,12 +82,15 @@ int main(int argc, char** argv){
     if (operation_type == "multiply"){
         Matrix product = mult_matrix(matrix_one, matrix_two);
         product.print_matrix(matrix_one.get_rows(), matrix_two.get_cols(), operation_type);
-    }else if (operation_type == "add"){
+    } else if (operation_type == "add"){
         Matrix sum = add_matrix(matrix_one, matrix_two);
         sum.print_matrix(matrix_one.get_rows(), matrix_two.get_cols(), operation_type);
-    }else if(operation_type == "subtract"){
+    } else if(operation_type == "subtract"){
         Matrix difference = subtract_matrix(matrix_one, matrix_two);
         difference.print_matrix(matrix_one.get_rows(), matrix_two.get_cols(), operation_type);
+    } else {
+        std::cout << "Operation types: multiply, add, subtract" << std::endl;
+        exit(1);
     }
 }
 
@@ -191,16 +199,14 @@ Matrix subtract_matrix(Matrix mat1, Matrix mat2){
 
 
 Matrix mult_matrix(Matrix mat1, Matrix mat2) {
-    Matrix product = Matrix();
+    Matrix product = Matrix(mat1.get_rows(), mat2.get_rows());
 
     Node* temp1 = mat1.get_head();
     Node* temp2 = mat2.get_head();
 
-    std::vector< std::vector<int> > mat1_rows;
-    std::vector< std::vector<int> > mat2_cols;
-    std::vector<int> topush_rows;
-    std::vector<int> topush_cols;
-    std::vector<int> prod_mat;
+    std::vector<Node*> mat1_rows;
+    std::vector<Node*> mat2_cols;
+    
     int val;    
 
 
@@ -210,40 +216,33 @@ Matrix mult_matrix(Matrix mat1, Matrix mat2) {
     }
 
     for (int i=0; i<mat1.get_rows(); i++){
-        while(temp1 != nullptr) {
-            if(temp1->get_row() == i) {
-                topush_rows.push_back(temp1->get_row());
-            } else {
-                topush_rows.push_back(0);
+        val=0;
+        if(temp1 != nullptr) {
+            std::cout << "searching for row/col: " << i << std::endl;
+            if (temp1->get_row() == i)
+            {
+                std::cout << "temp1: " << temp1->get_data() << " " << temp1->get_row() << " " << temp1->get_col() << std::endl;
+                mat1_rows.push_back(temp1);
+                temp1 = temp1->get_next();
             }
-            if(temp2->get_col() == i) {
-                topush_cols.push_back(temp2->get_col());
-            } else {
-                topush_cols.push_back(0);
+        }
+        if(temp2 != nullptr) {
+            if (temp2->get_col() == i) {
+                std::cout << "temp2: " << temp2->get_data() << " " << temp2->get_row() << " " << temp2->get_col() << std::endl;
+                mat2_cols.push_back(temp2);
+                temp2 = temp2->get_next();
             }
-            mat1_rows.push_back(topush_rows);
-            mat2_cols.push_back(topush_cols);
         }
-    }
-
-    //i corresponts to a(row) and b(col)
-    //j corresponds to idx of a(row) and b(col)
-    //a[0][0]*b[0][0] + a[0][1]*b[1][0] + a[0][2]*b[2][0]
-    //val += a[i][j]*b[j][i]
-
-    for (unsigned int i=0; i<mat1_rows.size(); i++){
-        val = 0;
-        for (unsigned int j=0; j<mat1_rows[i].size(); j++){
-            val += mat1_rows[i][j]*mat2_cols[j][i];
+        for (int j=0; j<mat1_rows.size(); j++) {
+            for (int k=0; k<mat2_cols.size(); k++) {
+                if (mat1_rows[j]->get_col() == mat2_cols[k]->get_col()){
+                    val += mat1_rows[j]->get_data()*mat2_cols[k]->get_data();
+                }
+            }
+            product.push_back(val, i, j);
         }
-        prod_mat.push_back(val);
+
     }
-
-
-    // TODO: arrange 1d prod_mat into a 2d array
-    
-
-    // TODO: push 2d product array to the product matrix linkedlist;
 
 
     return product;
