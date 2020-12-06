@@ -215,6 +215,7 @@ Matrix mult_matrix(Matrix mat1, Matrix mat2) {
         return product;
     }
 
+
     for (int i=0; i<mat1.get_rows(); i++){
         val=0;
         if(temp1 != nullptr) {
@@ -238,6 +239,7 @@ Matrix mult_matrix(Matrix mat1, Matrix mat2) {
                 if (mat1_rows[j]->get_col() == mat2_cols[k]->get_col()){
                     val += mat1_rows[j]->get_data()*mat2_cols[k]->get_data();
                 }
+                std::cout << "val: " << val << std::endl;
             }
             product.push_back(val, i, j);
         }
