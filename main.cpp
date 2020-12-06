@@ -7,6 +7,7 @@
 #include <sstream>
 
 Matrix add_matrix(Matrix mat1, Matrix mat2);
+Matrix subtract_matrix(Matrix mat1, Matrix mat2);
 Matrix mult_matrix(Matrix mat1, Matrix mat2);
 
 int main(int argc, char** argv){
@@ -79,6 +80,9 @@ int main(int argc, char** argv){
     }else if (operation_type == "add"){
         Matrix sum = add_matrix(matrix_one, matrix_two);
         sum.print_matrix(matrix_one.get_rows(), matrix_two.get_cols(), operation_type);
+    }else if(operation_type == "subtract"){
+        Matrix difference = subtract_matrix(matrix_one, matrix_two);
+        difference.print_matrix(matrix_one.get_rows(), matrix_two.get_cols(), operation_type);
     }
 }
 
@@ -134,9 +138,60 @@ Matrix add_matrix(Matrix mat1, Matrix mat2){
 
 }
 
+Matrix subtract_matrix(Matrix mat1, Matrix mat2){
+    Matrix difference = Matrix();
+
+    if (mat1.get_rows() != mat2.get_rows() || mat1.get_cols() != mat2.get_cols()){
+        std::cout << "Matrices must be same size to subtract" << std::endl;
+        return difference;
+    }
+
+    Node* temp1 = mat1.get_head();
+    Node* temp2 = mat2.get_head();
+
+    while(temp1 != nullptr && temp2 != nullptr){
+        if((temp1->get_row() == temp2->get_row()) && (temp1->get_col() == temp2->get_col())){
+            difference.push_back((temp1->get_data() - temp2->get_data()), temp1->get_row(), temp1->get_col());
+            temp1 = temp1->get_next();
+            temp2 = temp2->get_next();
+
+        } else if(temp1->get_row() == temp2->get_row()){
+            if(temp1->get_col() < temp2->get_col()){
+                difference.push_back(temp1->get_data(), temp1->get_row(), temp1->get_col());
+                temp1 = temp1->get_next();
+            }else{
+                difference.push_back(temp2->get_data(), temp2->get_row(), temp2->get_col());
+                temp2 = temp2->get_next();
+            }
+        } else if(temp1->get_row() != temp2->get_row()){
+            if(temp1->get_row() < temp2->get_row()){
+                difference.push_back(temp1->get_data(), temp1->get_row(), temp1->get_col());
+                temp1 = temp1->get_next();
+            }else{
+                difference.push_back(temp2->get_data(), temp2->get_row(), temp2->get_col());
+                temp2 = temp2->get_next();
+            }
+        }
+
+    }
+
+    while(temp2 != nullptr){
+        difference.push_back(temp2->get_data(), temp2->get_row(), temp2->get_col());
+        temp2 = temp2->get_next();
+
+
+    }
+    while(temp1 != nullptr){
+        difference.push_back(temp1->get_data(), temp1->get_row(), temp1->get_col());
+        temp1 = temp1->get_next();
+    }
+    return difference;
+}
+
+
 
 Matrix mult_matrix(Matrix mat1, Matrix mat2) {
-    Matrix product;
+    Matrix product = Matrix();
 
     Node* temp1 = mat1.get_head();
     Node* temp2 = mat2.get_head();
@@ -183,6 +238,7 @@ Matrix mult_matrix(Matrix mat1, Matrix mat2) {
         }
         prod_mat.push_back(val);
     }
+
 
     // TODO: arrange 1d prod_mat into a 2d array
     

@@ -39,38 +39,6 @@ Node* Matrix::get_head() {
     return this->head;
 }
 
-/*void Matrix::add_matrix(Matrix matrix_one, Matrix matrix_two){
-    Matrix matrix_three = Matrix();
-    Node* temp1 = matrix_one.head;
-    Node* temp2 = matrix_two.head;
-
-    while(temp1 != nullptr && temp2 !=nullptr){
-        if((temp1->row == temp2->row) && (temp1->col && temp2->col)){
-            matrix_three.push_back((temp1->data + temp2->data), temp1->row, temp1->col);
-            temp1 = temp1->next;
-            temp2 = temp2->next;
-        }else if(temp1->row == temp2->row){
-            if(temp1->col < temp2->col){
-                matrix_three.push_back(temp1->data, temp1->row, temp1->col);
-                temp1 = temp1->next;
-            }else{
-                matrix_three.push_back(temp2->data, temp2->row, temp2->col);
-                temp2 = temp2->next;
-            }
-        }else if(temp1->row != temp2->row){
-            if(temp1->row < temp2->row){
-                matrix_three.push_back(temp1->data, temp1->row, temp1->col);
-                temp1 = temp1->next;
-            }else{
-                matrix_three.push_back(temp2->data, temp2->row, temp2->col);
-                temp2 = temp2->next;
-            }
-        }
-    }
-    matrix_three.to_string();
-
-}*/
-
 /*
 void Matrix::insert(int data, int row, int col){
     if(!this->head){    // this->head == nullptr
@@ -161,11 +129,15 @@ void Matrix::print_matrix(int rows, int cols, std::string type){
 
     if(type == "add"){
         std::cout << std::endl;
-        std::cout << "The Sum of The Two Matrices Is: " <<  std::endl;
+        std::cout << "The sum of the two matrices is: " <<  std::endl;
         std::cout << "-------------------------------" << std::endl;
-    }else{
+    }else if(type == "multiply"){
         std::cout << std::endl;
-        std::cout << "The Product of The Two Matrices Is: " <<  std::endl;
+        std::cout << "The product of the two matrices is: " <<  std::endl;
+        std::cout << "-------------------------------" << std::endl;
+    }else if(type == "subtract"){
+        std::cout << std::endl;
+        std::cout << "The difference of the two matrices is: " <<  std::endl;
         std::cout << "-------------------------------" << std::endl;
     }
 
