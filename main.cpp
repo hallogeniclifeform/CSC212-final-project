@@ -153,9 +153,9 @@ Matrix mult_matrix(Matrix mat1, Matrix mat2) {
     //a[0][0]*b[0][0] + a[0][1]*b[1][0] + a[0][2]*b[2][0]
     //val += a[i][j]*b[j][i]
 
-    for (int i=0; i<mat1_rows.size(); i++){
+    for (unsigned int i=0; i<mat1_rows.size(); i++){
         val = 0;
-        for (int j=0; j<mat1_rows[i].size(); j++){
+        for (unsigned int j=0; j<mat1_rows[i].size(); j++){
             val += mat1_rows[i][j]*mat2_cols[j][i];
         }
         prod_mat.push_back(val);
