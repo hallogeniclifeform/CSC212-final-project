@@ -218,21 +218,25 @@ Matrix mult_matrix(Matrix mat1, Matrix mat2) {
 
     for (int i=0; i<mat1.get_rows(); i++){
         val=0;
-        if(temp1 != nullptr) {
+        temp1 = mat1.get_head();
+        temp2 = mat2.get_head();
+        while(temp1 != nullptr) {
             std::cout << "searching for row/col: " << i << std::endl;
             if (temp1->get_row() == i)
             {
                 std::cout << "temp1: " << temp1->get_data() << " " << temp1->get_row() << " " << temp1->get_col() << std::endl;
                 mat1_rows.push_back(temp1);
-                temp1 = temp1->get_next();
+                
             }
+            temp1 = temp1->get_next();
         }
-        if(temp2 != nullptr) {
+        while(temp2 != nullptr) {
             if (temp2->get_col() == i) {
                 std::cout << "temp2: " << temp2->get_data() << " " << temp2->get_row() << " " << temp2->get_col() << std::endl;
                 mat2_cols.push_back(temp2);
-                temp2 = temp2->get_next();
+                
             }
+            temp2 = temp2->get_next();
         }
         for (int j=0; j<mat1_rows.size(); j++) {
             for (int k=0; k<mat2_cols.size(); k++) {
