@@ -199,7 +199,7 @@ Matrix subtract_matrix(Matrix mat1, Matrix mat2){
 
 
 Matrix mult_matrix(Matrix mat1, Matrix mat2) {
-    Matrix product = Matrix(mat1.get_rows(), mat2.get_rows());
+    Matrix product = Matrix(mat1.get_rows(), mat2.get_cols());
 
     Node* temp1 = mat1.get_head();
     Node* temp2 = mat2.get_head();
@@ -215,16 +215,15 @@ Matrix mult_matrix(Matrix mat1, Matrix mat2) {
         return product;
     }
 
-
-    for (int i=0; i<mat1.get_rows(); i++){
-        val=0;
+    for (int i = 0; i < mat1.get_rows(); i++){
+        val = 0;
         if(temp1 != nullptr) {
             std::cout << "searching for row/col: " << i << std::endl;
-            if (temp1->get_row() == i)
-            {
+            if (temp1->get_row() == i){
                 std::cout << "temp1: " << temp1->get_data() << " " << temp1->get_row() << " " << temp1->get_col() << std::endl;
                 mat1_rows.push_back(temp1);
                 temp1 = temp1->get_next();
+
             }
         }
         if(temp2 != nullptr) {
@@ -234,16 +233,15 @@ Matrix mult_matrix(Matrix mat1, Matrix mat2) {
                 temp2 = temp2->get_next();
             }
         }
-        for (int j=0; j<mat1_rows.size(); j++) {
-            for (int k=0; k<mat2_cols.size(); k++) {
+        for (int j = 0; j < mat1_rows.size(); j++) {
+            for (int k = 0; k < mat2_cols.size(); k++){                
                 if (mat1_rows[j]->get_col() == mat2_cols[k]->get_col()){
-                    val += mat1_rows[j]->get_data()*mat2_cols[k]->get_data();
+                    val += mat1_rows[j]->get_data() * mat2_cols[k]->get_data();
                 }
                 std::cout << "val: " << val << std::endl;
             }
             product.push_back(val, i, j);
         }
-
     }
     
 
