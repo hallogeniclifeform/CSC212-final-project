@@ -215,31 +215,46 @@ Matrix mult_matrix(Matrix mat1, Matrix mat2) {
         return product;
     }
 
-    for (int i = 0; i < mat1.get_rows(); i++){
-        val = 0;
-        if(temp1 != nullptr) {
-            std::cout << "searching for row/col: " << i << std::endl;
-            if (temp1->get_row() == i){
-                std::cout << "temp1: " << temp1->get_data() << " " << temp1->get_row() << " " << temp1->get_col() << std::endl;
-                mat1_rows.push_back(temp1);
-                temp1 = temp1->get_next();
 
+    for (int i=0; i<mat1.get_rows(); i++){
+        val=0;
+        temp1 = mat1.get_head();
+        temp2 = mat2.get_head();
+        mat1_rows.clear();
+        mat2_cols.clear();
+
+        while(temp1 != nullptr) {
+            if (temp1->get_row() == i)
+            {
+                //std::cout << "temp1: " << temp1->get_data() << " " << temp1->get_row() << " " << temp1->get_col() << std::endl;
+                mat1_rows.push_back(temp1);
             }
+            temp1 = temp1->get_next();
         }
-        if(temp2 != nullptr) {
+        while(temp2 != nullptr) {
             if (temp2->get_col() == i) {
-                std::cout << "temp2: " << temp2->get_data() << " " << temp2->get_row() << " " << temp2->get_col() << std::endl;
+                //std::cout << "temp2: " << temp2->get_data() << " " << temp2->get_row() << " " << temp2->get_col() << std::endl;
                 mat2_cols.push_back(temp2);
-                temp2 = temp2->get_next();
+                
             }
+            temp2 = temp2->get_next();
         }
-        for (int j = 0; j < mat1_rows.size(); j++) {
-            for (int k = 0; k < mat2_cols.size(); k++){                
-                if (mat1_rows[j]->get_col() == mat2_cols[k]->get_col()){
+
+        //TEST~~~~~
+        for (int m=0; m<mat1_rows.size(); m++) {
+            std::cout << "mat 1 rows, idx " << m << ": " << mat1_rows[m]->get_data() << std::endl;
+        }
+        for (int n=0; n<mat2_cols.size(); n++) {
+            std::cout << "mat 2 cols, idx " << n << ": " << mat2_cols[n]->get_data() << std::endl;
+        }
+
+        for (int j=0; j<mat1_rows.size(); j++) {
+            for (int k=0; k<mat2_cols.size(); k++) {
+                if (mat1_rows[j]->get_col() == mat2_cols[k]->get_row()) {
                     val += mat1_rows[j]->get_data() * mat2_cols[k]->get_data();
                 }
-                std::cout << "val: " << val << std::endl;
             }
+            //std::cout << "val: " << val << std::endl;
             product.push_back(val, i, j);
         }
     }
