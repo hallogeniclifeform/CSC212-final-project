@@ -39,63 +39,7 @@ Node* Matrix::get_head() {
     return this->head;
 }
 
-/*
-void Matrix::insert(int data, int row, int col){
-    if(!this->head){    // this->head == nullptr
-        this->head = new Node(data, idx, col);
-    }else if(idx == 0){
-        this->push_front(data);
-        return;
-    }else if(this->size < idx){
-        this->push_back(data);
-        return;
-    }else{
-        Node* tmp = this->head;
-        while(idx > 1){
-            tmp = tmp->next;
-            idx--;
-        }
-        Node* tmp2 = new Node(data);
-        tmp2->next = tmp->next;
-        tmp->next = tmp2;
-    }
-    this->size++;
-}
 
- void Matrix::remove(int data){
-    Node* tmp = this->head;
-    Node* prev = nullptr;
-
-    while(tmp != nullptr && tmp->data != data){
-        prev = tmp;
-        tmp = tmp->next;
-    }
-
-    if(tmp != nullptr){
-        prev->next = tmp->next;
-        // Without this, the Node destructor will delete
-        // every element in the list after 'temp'
-        tmp->next = nullptr;
-        delete tmp;
-
-        this->size--;
-    }else{
-        std::cout << data << " does not exist!" << std::endl;
-    }
-}
- bool Matrix::contains(int data){
-    Node* tmp = this->head;
-
-    while(tmp != nullptr){
-        if(tmp->data == data){
-            return true;
-        }
-        tmp = tmp->next;
-    }
-
-    return false;
-}
-*/
 int Matrix::get_size(){
     return this->size;
 }
@@ -107,8 +51,6 @@ int Matrix::get_rows() {
 int Matrix::get_cols() {
     return this->cols;
 }
-
-
 
 void Matrix::print_matrix(int rows, int cols, std::string type){
     int print_array[rows][cols];
