@@ -127,15 +127,15 @@ void Matrix::print_matrix(int rows, int cols, std::string type){
         }
     }
 
-    if(type == "add"){
+    if(type == "a"){
         std::cout << std::endl;
         std::cout << "The sum of the two matrices is: " <<  std::endl;
         std::cout << "-------------------------------" << std::endl;
-    }else if(type == "multiply"){
+    }else if(type == "m"){
         std::cout << std::endl;
         std::cout << "The product of the two matrices is: " <<  std::endl;
         std::cout << "-------------------------------" << std::endl;
-    }else if(type == "subtract"){
+    }else if(type == "s"){
         std::cout << std::endl;
         std::cout << "The difference of the two matrices is: " <<  std::endl;
         std::cout << "-------------------------------" << std::endl;
