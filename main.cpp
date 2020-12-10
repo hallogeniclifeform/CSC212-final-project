@@ -11,130 +11,216 @@ Matrix mult_matrix(Matrix mat1, Matrix mat2);
 
 int main(int argc, char** argv){
 
-    if (argc != 4) {
+    if (argc < 4) {
         std::cout << "USAGE: [file 1] [file 2] [operation type]" << std::endl;
         exit(1);
     }
 
-    std::fstream matrix_file_one(argv[1]);              // filestream containing matrix 1
-    std::fstream matrix_file_two(argv[2]);              // filestream containing matrix 2
+    // Files saved in the Sparse Matrix form are named in the format mat-*.txt
+    // Files saved in the Linked List form are named in the format ll-*.txt
+
+    std::string file_one(argv[1]);                  // filename of file containing matrix 1
+    std::string file_two(argv[2]);                  // filename of file containing matrix 2
     std::string operation_type = argv[3];
+    std::string save_file;
+    bool save = false;
+    if (argc == 5) {
+        save_file = argv[4];
+        save = true;
+        if (save_file[0] != 'l') {
+            std::cout << "Files saved in the Linked List form are named in the format ll-*.txt" << std::endl;
+            exit(1);
+        }
+    }
+
+    Matrix matrix_one;
+    Matrix matrix_two;
 
     // 2-d vectors to load in the matrices
-    std::vector<std::vector<int>> sparse_matrix_one;    
-    std::vector<std::vector<int>> sparse_matrix_two;
+    std::vector<std::vector<int>> sparse_matrix_one;    // 2d vector to load in matrix 1
+    std::vector<std::vector<int>> sparse_matrix_two;    // 2d vector to load in matrix 2
 
     int row1 = 0, row2 = 0;
     int col1 = 0, col2 = 0;
     std::string tempString;
     int num;
 
-    // Load filestream into vector 1
-    while(std::getline(matrix_file_one, tempString)){
-        std::vector<int> row;
-        std::stringstream ss(tempString);
-        while(ss >> num){
-            row.push_back(num);
-            col1++;
-        }
-        sparse_matrix_one.push_back(row);
-        row1++;
-    }
-    col1 /= row1;
+    if(operation_type[0] == 'c') {
+        if (file_one[0] == 'm') {
+            std::fstream matrix_file_one(file_one);             // filestream containing matrix 1
 
-    // Load filestream into vector 2
-    while(std::getline(matrix_file_two, tempString)){
-        std::vector<int> row;
-        std::stringstream ss(tempString);
-        while(ss >> num){
-            row.push_back(num);
-            col2++;
-        }
-        sparse_matrix_two.push_back(row);
-        row2++;
-    }
-    col2 /= row2;
-
-    // Initialize Matrix objects with the row/col counts (to check for operability)
-    Matrix matrix_one = Matrix(row1, col1);
-    Matrix matrix_two = Matrix(row2, col2);
-
-    /* 12/6/2020:
-     * had to split up nested for loop for each matrix because differing sizes of matrices (5x4 matrix and 4x5 matrix) breaks the program
-     * and doesnt even run;
-     * added row1,col1, etc above in main to lessen the amount of hardcoding necessary.
-     * also added file reading, with command line arguments. first two are the two text files while the third one is operation type. ("add or multiply")
-     */
-
-    // Load vectors into Matrix objects
-    for(int i = 0; i < row1; i++){
-        for(int j = 0; j < col1; j++){
-            if(sparse_matrix_one[i][j] != 0){
-                matrix_one.push_back(sparse_matrix_one[i][j], i, j);
+            // Load filestream into vector 1
+            while(std::getline(matrix_file_one, tempString)){
+                std::vector<int> row;
+                std::stringstream ss(tempString);
+                while(ss >> num){
+                    row.push_back(num);
+                    col1++;
+                }
+                sparse_matrix_one.push_back(row);
+                row1++;
             }
-        }
-    }
+            col1 /= row1;
 
-    for(int i = 0; i < row2; i++){
-        for(int j = 0; j < col2; j++){
-            if(sparse_matrix_two[i][j] != 0){
-                matrix_two.push_back(sparse_matrix_two[i][j], i, j);
+            matrix_one = Matrix(row1, col1);
+
+            // Load vectors into Matrix objects
+            for(int i = 0; i < row1; i++){
+                for(int j = 0; j < col1; j++){
+                    if(sparse_matrix_one[i][j] != 0){
+                        matrix_one.push_back(sparse_matrix_one[i][j], i, j);
+                    }
+                }
             }
+        } else {
+            std::cout << "Files saved in the Sparse Matrix form are named in the format mat-*.txt" << std::endl;
+            exit(1);
         }
-    }
 
-    // Operate on matrices based on the op specified
-    // EDIT: I edited to foolproof for typos (as long as the first letter is right)
-    if (operation_type[0] == 'm'){
-        Matrix product = mult_matrix(matrix_one, matrix_two);
-        product.print_matrix(matrix_one.get_rows(), matrix_two.get_cols(), operation_type);
-    } else if (operation_type[0] == 'a'){
-        Matrix sum = add_matrix(matrix_one, matrix_two);
-        sum.print_matrix(matrix_one.get_rows(), matrix_two.get_cols(), operation_type);
-    } else if(operation_type[0] == 's'){
-        Matrix difference = subtract_matrix(matrix_one, matrix_two);
-        difference.print_matrix(matrix_one.get_rows(), matrix_two.get_cols(), operation_type);
+        if(file_two[0] == 'l'){
+            matrix_one.save_matrix(file_two);
+        } else {
+            std::cout << "Files saved in the Linked List form are named in the format ll-*.txt" << std::endl;
+            exit(1);
+        }
+
     } else {
-        // If the operation
-        std::cout << "Operation types: (m)ultiply, \n"
-                  << "                 (a)dd, \n"
-                  << "                 (s)ubtract" << std::endl;
-        exit(1);
+
+        if(file_one[0] == 'm') {
+            std::fstream matrix_file_one(file_one);             // filestream containing matrix 1
+
+            // Load filestream into vector 1
+            while(std::getline(matrix_file_one, tempString)){
+                std::vector<int> row;
+                std::stringstream ss(tempString);
+                while(ss >> num){
+                    row.push_back(num);
+                    col1++;
+                }
+                sparse_matrix_one.push_back(row);
+                row1++;
+            }
+            col1 /= row1;
+
+            matrix_one = Matrix(row1, col1);
+
+            // Load vectors into Matrix objects
+            for(int i = 0; i < row1; i++){
+                for(int j = 0; j < col1; j++){
+                    if(sparse_matrix_one[i][j] != 0){
+                        matrix_one.push_back(sparse_matrix_one[i][j], i, j);
+                    }
+                }
+            }
+
+        } else if (file_one[0] == 'l') {
+            matrix_one = Matrix(file_one);
+        }
+
+        if(file_two[0] == 'm') {
+            std::fstream matrix_file_two(file_two);              // filestream containing matrix 2
+
+            // Load filestream into vector 2
+            while(std::getline(matrix_file_two, tempString)){
+                std::vector<int> row;
+                std::stringstream ss(tempString);
+                while(ss >> num){
+                    row.push_back(num);
+                    col2++;
+                }
+                sparse_matrix_two.push_back(row);
+                row2++;
+            }
+            col2 /= row2;
+            
+            matrix_two = Matrix(row2, col2);
+
+            // Load vectors into Matrix objects
+            for(int i = 0; i < row2; i++){
+                for(int j = 0; j < col2; j++){
+                    if(sparse_matrix_two[i][j] != 0){
+                        matrix_two.push_back(sparse_matrix_two[i][j], i, j);
+                    }
+                }
+            }
+
+
+        } else if (file_two[0] == 'l') {
+            matrix_two = Matrix(file_two);
+        }
+
+        // Operate on matrices based on the op specified
+        // EDIT: I edited to foolproof for typos in the command line (as long as the first letter is right)
+        if (operation_type[0] == 'm'){
+            Matrix product = mult_matrix(matrix_one, matrix_two);
+            product.print_matrix(matrix_one.get_rows(), matrix_two.get_cols(), operation_type);
+            if(save) {
+                product.save_matrix(save_file);
+            }
+        } else if (operation_type[0] == 'a'){
+            Matrix sum = add_matrix(matrix_one, matrix_two);
+            sum.print_matrix(matrix_one.get_rows(), matrix_two.get_cols(), operation_type);
+            if(save) {
+                sum.save_matrix(save_file);
+            }
+        } else if(operation_type[0] == 's'){
+            Matrix difference = subtract_matrix(matrix_one, matrix_two);
+            difference.print_matrix(matrix_one.get_rows(), matrix_two.get_cols(), operation_type);
+            if(save) {
+                difference.save_matrix(save_file);
+            }
+            
+        } else {
+            // If the operation
+            std::cout << "Operation types: (m)ultiply,\n"
+                    << "                 (a)dd,\n"
+                    << "                 (s)ubtract" 
+                    << "                 (c)onvert"<< std::endl;
+            exit(1);
+        }
     }
 }
 
 
 Matrix add_matrix(Matrix mat1, Matrix mat2){
 
+    // Initialize the matrix to return
     Matrix sum = Matrix();
 
+    Node* temp1 = mat1.get_head();      // The node to check from matrix 1
+    Node* temp2 = mat2.get_head();      // The node to check from matrix 2
+
+    // In the event the sum cannot be calculated, throw an error and exit the program
     if (mat1.get_rows() != mat2.get_rows() || mat1.get_cols() != mat2.get_cols()){
         std::cout << "Matrices must be same size to add" << std::endl;
-        return sum;
+        exit(1);
     }
 
-    Node* temp1 = mat1.get_head();
-    Node* temp2 = mat2.get_head();
 
     while(temp1 != nullptr && temp2 != nullptr){
         if((temp1->get_row() == temp2->get_row()) && (temp1->get_col() == temp2->get_col())){
+            // If both the row and column indices of each Node match, add the values and push them to the new matrix
             sum.push_back((temp1->get_data() + temp2->get_data()), temp1->get_row(), temp1->get_col());
             temp1 = temp1->get_next();
             temp2 = temp2->get_next();
 
         } else if(temp1->get_row() == temp2->get_row()){
             if(temp1->get_col() < temp2->get_col()){
+                // If the row indices match and the column of the first is smaller, push the Node from matrix 1
                 sum.push_back(temp1->get_data(), temp1->get_row(), temp1->get_col());
                 temp1 = temp1->get_next();
             }else{
+                // If the row indices match and the column of the second is smaller, push the Node from matrix 2
                 sum.push_back(temp2->get_data(), temp2->get_row(), temp2->get_col());
                 temp2 = temp2->get_next();
             }
         } else if(temp1->get_row() != temp2->get_row()){
             if(temp1->get_row() < temp2->get_row()){
+                // If the row indices do not match and the column of the first is smaller, push the Node from matrix 1
                 sum.push_back(temp1->get_data(), temp1->get_row(), temp1->get_col());
                 temp1 = temp1->get_next();
             }else{
+                // If the row indices do not match and the column of the second is smaller, push the Node from matrix 2
                 sum.push_back(temp2->get_data(), temp2->get_row(), temp2->get_col());
                 temp2 = temp2->get_next();
             }
@@ -143,12 +229,12 @@ Matrix add_matrix(Matrix mat1, Matrix mat2){
     }
 
     while(temp2 != nullptr){
+        // If the Matrix 1 runs out of Nodes to check, push the remaining Nodes to the new Matrix
         sum.push_back(temp2->get_data(), temp2->get_row(), temp2->get_col());
         temp2 = temp2->get_next();
-
-
     }
     while(temp1 != nullptr){
+        // If the Matrix 2 runs out of Nodes to check, push the remaining Nodes to the new Matrix
         sum.push_back(temp1->get_data(), temp1->get_row(), temp1->get_col());
         temp1 = temp1->get_next();
     }
@@ -157,35 +243,42 @@ Matrix add_matrix(Matrix mat1, Matrix mat2){
 }
 
 Matrix subtract_matrix(Matrix mat1, Matrix mat2){
+    // Initialize the matrix to return
     Matrix difference = Matrix();
 
+    Node* temp1 = mat1.get_head();      // The node to check from matrix 1
+    Node* temp2 = mat2.get_head();      // The node to check from matrix 2
+
+    // In the event the sum cannot be calculated, throw an error and exit the program
     if (mat1.get_rows() != mat2.get_rows() || mat1.get_cols() != mat2.get_cols()){
         std::cout << "Matrices must be same size to subtract" << std::endl;
-        return difference;
+        exit(1);
     }
-
-    Node* temp1 = mat1.get_head();
-    Node* temp2 = mat2.get_head();
 
     while(temp1 != nullptr && temp2 != nullptr){
         if((temp1->get_row() == temp2->get_row()) && (temp1->get_col() == temp2->get_col())){
+            // If both the row and column indices of each Node match, subtract the values and push them to the new matrix
             difference.push_back((temp1->get_data() - temp2->get_data()), temp1->get_row(), temp1->get_col());
             temp1 = temp1->get_next();
             temp2 = temp2->get_next();
 
         } else if(temp1->get_row() == temp2->get_row()){
             if(temp1->get_col() < temp2->get_col()){
+                // If the row indices match and the column of the first is smaller, push the Node from matrix 1
                 difference.push_back(temp1->get_data(), temp1->get_row(), temp1->get_col());
                 temp1 = temp1->get_next();
             }else{
+                // If the row indices match and the column of the second is smaller, push the Node from matrix 2
                 difference.push_back(temp2->get_data(), temp2->get_row(), temp2->get_col());
                 temp2 = temp2->get_next();
             }
         } else if(temp1->get_row() != temp2->get_row()){
             if(temp1->get_row() < temp2->get_row()){
+                // If the row indices do not match and the column of the first is smaller, push the Node from matrix 1
                 difference.push_back(temp1->get_data(), temp1->get_row(), temp1->get_col());
                 temp1 = temp1->get_next();
             }else{
+                // If the row indices do not match and the column of the second is smaller, push the Node from matrix 2
                 difference.push_back(temp2->get_data(), temp2->get_row(), temp2->get_col());
                 temp2 = temp2->get_next();
             }
@@ -194,12 +287,14 @@ Matrix subtract_matrix(Matrix mat1, Matrix mat2){
     }
 
     while(temp2 != nullptr){
+        // If the Matrix 1 runs out of Nodes to check, push the remaining Nodes to the new Matrix
         difference.push_back(temp2->get_data(), temp2->get_row(), temp2->get_col());
         temp2 = temp2->get_next();
 
 
     }
     while(temp1 != nullptr){
+        // If the Matrix 2 runs out of Nodes to check, push the remaining Nodes to the new Matrix
         difference.push_back(temp1->get_data(), temp1->get_row(), temp1->get_col());
         temp1 = temp1->get_next();
     }
@@ -209,6 +304,7 @@ Matrix subtract_matrix(Matrix mat1, Matrix mat2){
 
 
 Matrix mult_matrix(Matrix mat1, Matrix mat2) {
+    
     // Initialize the Matrix to return
     Matrix product = Matrix(mat1.get_rows(), mat2.get_rows());
     int val = 0;                    // The value to pass to the product Matrix

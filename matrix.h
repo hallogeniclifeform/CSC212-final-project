@@ -12,8 +12,8 @@ class Matrix{
     public:
         Matrix();
         ~Matrix();
-        Matrix(int data);
         Matrix(int rows, int cols);
+        Matrix(std::string filename);
         
         void push_back(int data, int row, int col);
         int get_size();
@@ -21,4 +21,5 @@ class Matrix{
         int get_cols();
         Node* get_head();
         void print_matrix(int rows, int cols, std::string type);
+        void save_matrix(std::string filename);
 };
