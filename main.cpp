@@ -10,7 +10,7 @@ Matrix add_matrix(Matrix mat1, Matrix mat2);
 Matrix subtract_matrix(Matrix mat1, Matrix mat2);
 Matrix mult_matrix(Matrix mat1, Matrix mat2);
 
-void time_func(Matrix mat1, Matrix mat2) {
+void time_func(Matrix mat1, Matrix mat2, std::vector< std::vector<int> > vec1, std::vector< std::vector<int> > vec2 ) {
     Matrix new_mat;
     unsigned long c_start, c_end;
     float output;
@@ -20,15 +20,15 @@ void time_func(Matrix mat1, Matrix mat2) {
     c_end = std::clock();
 
     output = 1.0 * (c_end - c_start) / CLOCKS_PER_SEC;
-    std::cout << "Time of addition:" << std::endl;
+    std::cout << "Time of Linked List addition:" << std::endl;
     std::cout << output << std::endl;
     
     c_start = std::clock();
-    new_mat = mult_matrix(mat1, mat2);
+    new_mat = mult_matrix(vec1, vec2);
     c_end = std::clock();
 
     output = 1.0 * (c_end - c_start) / CLOCKS_PER_SEC;
-    std::cout << "Time of addition:" << std::endl;
+    std::cout << "Time of Full Matrix addition:" << std::endl;
     std::cout << output << std::endl;
 }
 
