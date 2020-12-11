@@ -4,10 +4,35 @@
 #include "matrix.h"
 #include <fstream>
 #include <sstream>
+#include <ctime>
 
 Matrix add_matrix(Matrix mat1, Matrix mat2);
 Matrix subtract_matrix(Matrix mat1, Matrix mat2);
 Matrix mult_matrix(Matrix mat1, Matrix mat2);
+
+void time_func(Matrix mat1, Matrix mat2, std::vector< std::vector<int> > vec1, std::vector< std::vector<int> > vec2 ) {
+    Matrix new_mat;
+    unsigned long c_start, c_end;
+    float output;
+    
+    c_start = std::clock();
+    new_mat = add_matrix(mat1, mat2);
+    c_end = std::clock();
+
+    output = 1.0 * (c_end - c_start) / CLOCKS_PER_SEC;
+    std::cout << "Time of Linked List addition:" << std::endl;
+    std::cout << output << std::endl;
+    
+    c_start = std::clock();
+    //new_mat = addFunctToBeAdded(vec1, vec2);
+    c_end = std::clock();
+
+    output = 1.0 * (c_end - c_start) / CLOCKS_PER_SEC;
+    std::cout << "Time of Full Matrix addition:" << std::endl;
+    std::cout << output << std::endl;
+}
+
+
 
 int main(int argc, char** argv){
 
@@ -114,7 +139,24 @@ int main(int argc, char** argv){
             }
 
         } else if (file_one[0] == 'l') {
-            matrix_one = Matrix(file_one);
+            std::ifstream filein(file_one);
+            int rows, cols;
+            int data, row, col;
+            std::string line;
+
+            while(std::getline(filein, line)) {
+                std::istringstream ss(line);
+                ss >> rows;
+                ss >> cols;
+                matrix_one = Matrix(rows, cols);
+                while(std::getline(filein, line)) {
+                    std::istringstream iss(line);
+                    while(iss >> row >> col >> data) {
+                        matrix_one.push_back(data, row, col);
+
+                    }
+                }
+            }
         }
 
         if(file_two[0] == 'm') {
@@ -146,7 +188,24 @@ int main(int argc, char** argv){
 
 
         } else if (file_two[0] == 'l') {
-            matrix_two = Matrix(file_two);
+            std::ifstream filein(file_two);
+            int rows, cols;
+            int data, row, col;
+            std::string line;
+
+            while(std::getline(filein, line)) {
+                std::istringstream ss(line);
+                ss >> rows;
+                ss >> cols;
+                matrix_two = Matrix(rows, cols);
+                while(std::getline(filein, line)) {
+                    std::istringstream iss(line);
+                    while(iss >> row >> col >> data) {
+                        matrix_two.push_back(data, row, col);
+
+                    }
+                }
+            }
         }
 
         // Operate on matrices based on the op specified
@@ -173,9 +232,9 @@ int main(int argc, char** argv){
         } else {
             // If the operation
             std::cout << "Operation types: (m)ultiply,\n"
-                    << "                 (a)dd,\n"
-                    << "                 (s)ubtract" 
-                    << "                 (c)onvert"<< std::endl;
+                      << "                 (a)dd,\n"
+                      << "                 (s)ubtract\n" 
+                      << "                 (c)onvert"<< std::endl;
             exit(1);
         }
     }
@@ -197,7 +256,7 @@ Matrix add_matrix(Matrix mat1, Matrix mat2){
     }
 
 
-    while(temp1 != nullptr && temp2 != nullptr){
+    while(temp1 != nullptr && temp2 != nullptr){ 
         if((temp1->get_row() == temp2->get_row()) && (temp1->get_col() == temp2->get_col())){
             // If both the row and column indices of each Node match, add the values and push them to the new matrix
             sum.push_back((temp1->get_data() + temp2->get_data()), temp1->get_row(), temp1->get_col());
@@ -371,12 +430,12 @@ Matrix mult_matrix(Matrix mat1, Matrix mat2) {
                 }
             }
             // Push the value to the product matrix
-            product.push_back(val, prod_row, prod_col);
-
+            if (val!=0){
+                product.push_back(val, prod_row, prod_col);
+            }
         }
     }
 
     
     return product;
 }
-
