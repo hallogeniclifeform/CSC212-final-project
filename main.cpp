@@ -9,10 +9,6 @@ Matrix add_matrix(Matrix mat1, Matrix mat2);
 Matrix subtract_matrix(Matrix mat1, Matrix mat2);
 Matrix mult_matrix(Matrix mat1, Matrix mat2);
 
-std::vector<std::vector<int>> add_matrix_base(std::vector<std::vector<int>> sparse_matrix_one, std::vector<std::vector<int>> sparse_matrix_one);
-std::vector<std::vector<int>> subtract_matrix_base(std::vector<std::vector<int>> sparse_matrix_one, std::vector<std::vector<int>> sparse_matrix_one);
-std::vector<std::vector<int>> mult_matrix(std::vector<std::vector<int>> sparse_matrix_one, std::vector<std::vector<int>> sparse_matrix_one);
-
 int main(int argc, char** argv){
 
     if (argc < 4) {
@@ -384,13 +380,3 @@ Matrix mult_matrix(Matrix mat1, Matrix mat2) {
     return product;
 }
 
-std::vector<std::vector<int>> add_matrix_base(std::vector<std::vector<int>> &sparse_matrix_one, std::vector<std::vector<int>> &sparse_matrix_two){
-    std::vector<std::vector<int>> sum_matrix;
-    std::vector<int> row;
-    for(int i = 0; i < sparse_matrix_one.size(); i++){
-        for(int j = 0; j < sparse_matrix_one.size(); j++){
-            sum_matrix[i][j] == sparse_matrix_one[i][j] + sparse_matrix_two[i][j];
-        }
-    }
-    return sum_matrix;
-}

@@ -21,7 +21,7 @@ int main(int argc, char *argv[]) {
     for (int i=0; i<rows; i++) {
         row.clear();
         for (int j=0; j<cols; j++) {
-            random = (rand() % 55) + 1;
+            random = (rand() % 85) + 1;
             if (random > 9) {
                 row.push_back(0);
             } else {
