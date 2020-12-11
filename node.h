@@ -12,7 +12,6 @@ class Node{
         Node();
         ~Node();
         Node(int data, int row, int col);
-        Node(int data, int row, int col, Node* next);
 
         int get_data();
         int get_row();

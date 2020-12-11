@@ -18,11 +18,6 @@ Node::Node(int data, int row, int col){
     this->next = nullptr;
 }
 
-/*Node::Node(int data, int row, int col, Node* next){
-    this->data = data;
-    this->next = next;
-}*/
-
 int Node::get_data() {
     return this->data;
 }

@@ -1,6 +1,8 @@
 #include "node.h"
 #include "matrix.h"
 #include <iostream>
+#include <fstream>
+#include <sstream>
 
 Matrix::Matrix(){
     this->head = nullptr;
@@ -14,6 +16,23 @@ Matrix::Matrix(int rows, int cols) {
     this->size = 0;
     this->rows = rows;
     this->cols = cols;
+}
+
+Matrix::Matrix(std::string filename) {
+    std::ifstream filein(filename);
+    int data, row, col;
+	std::string line;
+
+    while(std::getline(filein, line)) {
+        std::istringstream ss(line);
+        ss >> this->rows;
+        ss >> this->cols;
+        for(int i=0; i<3; i++){
+            ss >> row;
+            ss >> col;
+            ss >> data;
+        }
+    }
 }
 
 Matrix::~Matrix(){
@@ -39,63 +58,7 @@ Node* Matrix::get_head() {
     return this->head;
 }
 
-/*
-void Matrix::insert(int data, int row, int col){
-    if(!this->head){    // this->head == nullptr
-        this->head = new Node(data, idx, col);
-    }else if(idx == 0){
-        this->push_front(data);
-        return;
-    }else if(this->size < idx){
-        this->push_back(data);
-        return;
-    }else{
-        Node* tmp = this->head;
-        while(idx > 1){
-            tmp = tmp->next;
-            idx--;
-        }
-        Node* tmp2 = new Node(data);
-        tmp2->next = tmp->next;
-        tmp->next = tmp2;
-    }
-    this->size++;
-}
 
- void Matrix::remove(int data){
-    Node* tmp = this->head;
-    Node* prev = nullptr;
-
-    while(tmp != nullptr && tmp->data != data){
-        prev = tmp;
-        tmp = tmp->next;
-    }
-
-    if(tmp != nullptr){
-        prev->next = tmp->next;
-        // Without this, the Node destructor will delete
-        // every element in the list after 'temp'
-        tmp->next = nullptr;
-        delete tmp;
-
-        this->size--;
-    }else{
-        std::cout << data << " does not exist!" << std::endl;
-    }
-}
- bool Matrix::contains(int data){
-    Node* tmp = this->head;
-
-    while(tmp != nullptr){
-        if(tmp->data == data){
-            return true;
-        }
-        tmp = tmp->next;
-    }
-
-    return false;
-}
-*/
 int Matrix::get_size(){
     return this->size;
 }
@@ -107,8 +70,6 @@ int Matrix::get_rows() {
 int Matrix::get_cols() {
     return this->cols;
 }
-
-
 
 void Matrix::print_matrix(int rows, int cols, std::string type){
     int print_array[rows][cols];
@@ -147,6 +108,19 @@ void Matrix::print_matrix(int rows, int cols, std::string type){
         }
         std::cout << std::endl;
     }       
+}
+
+void Matrix::save_matrix(std::string filename) {
+    std::ofstream out_file(filename);
+    Node* temp = this->head;
+
+    out_file << this->rows << " " << this->cols << std::endl;
+
+    for (int i=0; i<this->size; i++) {
+        out_file << temp->row << " " << temp->col << " " << temp->data << std::endl;
+        temp = temp->next;
+    }
+
 }
 
 
