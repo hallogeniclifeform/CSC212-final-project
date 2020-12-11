@@ -139,7 +139,24 @@ int main(int argc, char** argv){
             }
 
         } else if (file_one[0] == 'l') {
-            matrix_one = Matrix(file_one);
+            std::ifstream filein(file_one);
+            int rows, cols;
+            int data, row, col;
+            std::string line;
+
+            while(std::getline(filein, line)) {
+                std::istringstream ss(line);
+                ss >> rows;
+                ss >> cols;
+                matrix_one = Matrix(rows, cols);
+                while(std::getline(filein, line)) {
+                    std::istringstream iss(line);
+                    while(iss >> row >> col >> data) {
+                        matrix_one.push_back(data, row, col);
+
+                    }
+                }
+            }
         }
 
         if(file_two[0] == 'm') {
@@ -171,7 +188,24 @@ int main(int argc, char** argv){
 
 
         } else if (file_two[0] == 'l') {
-            matrix_two = Matrix(file_two);
+            std::ifstream filein(file_two);
+            int rows, cols;
+            int data, row, col;
+            std::string line;
+
+            while(std::getline(filein, line)) {
+                std::istringstream ss(line);
+                ss >> rows;
+                ss >> cols;
+                matrix_two = Matrix(rows, cols);
+                while(std::getline(filein, line)) {
+                    std::istringstream iss(line);
+                    while(iss >> row >> col >> data) {
+                        matrix_two.push_back(data, row, col);
+
+                    }
+                }
+            }
         }
 
         // Operate on matrices based on the op specified
@@ -222,7 +256,7 @@ Matrix add_matrix(Matrix mat1, Matrix mat2){
     }
 
 
-    while(temp1 != nullptr && temp2 != nullptr){
+    while(temp1 != nullptr && temp2 != nullptr){ 
         if((temp1->get_row() == temp2->get_row()) && (temp1->get_col() == temp2->get_col())){
             // If both the row and column indices of each Node match, add the values and push them to the new matrix
             sum.push_back((temp1->get_data() + temp2->get_data()), temp1->get_row(), temp1->get_col());
