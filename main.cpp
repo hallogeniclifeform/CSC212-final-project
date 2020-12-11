@@ -24,7 +24,7 @@ void time_func(Matrix mat1, Matrix mat2, std::vector< std::vector<int> > vec1, s
     std::cout << output << std::endl;
     
     c_start = std::clock();
-    new_mat = mult_matrix(vec1, vec2);
+    //new_mat = addFunctToBeAdded(vec1, vec2);
     c_end = std::clock();
 
     output = 1.0 * (c_end - c_start) / CLOCKS_PER_SEC;
