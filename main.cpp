@@ -173,9 +173,9 @@ int main(int argc, char** argv){
         } else {
             // If the operation
             std::cout << "Operation types: (m)ultiply,\n"
-                    << "                 (a)dd,\n"
-                    << "                 (s)ubtract" 
-                    << "                 (c)onvert"<< std::endl;
+                      << "                 (a)dd,\n"
+                      << "                 (s)ubtract\n" 
+                      << "                 (c)onvert"<< std::endl;
             exit(1);
         }
     }
