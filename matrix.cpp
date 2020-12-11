@@ -23,14 +23,22 @@ Matrix::Matrix(std::string filename) {
     int data, row, col;
 	std::string line;
 
+    int val;
+
     while(std::getline(filein, line)) {
         std::istringstream ss(line);
         ss >> this->rows;
         ss >> this->cols;
-        while(ss >> row, col, data) {
-            this->push_back(data, row, col);
+        while(std::getline(filein, line)) {
+            std::istringstream iss(line);
+            while(iss >> row >> col >> data) {
+                this->push_back(data, row, col);
+
+            }
         }
     }
+
+    filein.close();
 }
 
 Matrix::~Matrix(){
@@ -78,7 +86,7 @@ void Matrix::print_matrix(int rows, int cols, std::string type){
             if(temp->row == i && temp->col == j){
                 print_array[i][j] = temp->data;
                 if(temp->next != nullptr){
-                    temp = temp->next;                    
+                    temp = temp->next;
                 }
             }else{
                 print_array[i][j] = 0;
@@ -105,7 +113,7 @@ void Matrix::print_matrix(int rows, int cols, std::string type){
             std::cout << print_array[i][j] << " ";
         }
         std::cout << std::endl;
-    }       
+    }
 }
 
 void Matrix::save_matrix(std::string filename) {
