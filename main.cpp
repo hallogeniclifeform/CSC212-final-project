@@ -4,10 +4,35 @@
 #include "matrix.h"
 #include <fstream>
 #include <sstream>
+#include <ctime>
 
 Matrix add_matrix(Matrix mat1, Matrix mat2);
 Matrix subtract_matrix(Matrix mat1, Matrix mat2);
 Matrix mult_matrix(Matrix mat1, Matrix mat2);
+
+void time_func(Matrix mat1, Matrix mat2) {
+    Matrix new_mat;
+    unsigned long c_start, c_end;
+    float output;
+    
+    c_start = std::clock();
+    new_mat = add_matrix(mat1, mat2);
+    c_end = std::clock();
+
+    output = 1.0 * (c_end - c_start) / CLOCKS_PER_SEC;
+    std::cout << "Time of addition:" << std::endl;
+    std::cout << output << std::endl;
+    
+    c_start = std::clock();
+    new_mat = mult_matrix(mat1, mat2);
+    c_end = std::clock();
+
+    output = 1.0 * (c_end - c_start) / CLOCKS_PER_SEC;
+    std::cout << "Time of addition:" << std::endl;
+    std::cout << output << std::endl;
+}
+
+
 
 int main(int argc, char** argv){
 
@@ -371,8 +396,9 @@ Matrix mult_matrix(Matrix mat1, Matrix mat2) {
                 }
             }
             // Push the value to the product matrix
-            product.push_back(val, prod_row, prod_col);
-
+            if (val!=0){
+                product.push_back(val, prod_row, prod_col);
+            }
         }
     }
 

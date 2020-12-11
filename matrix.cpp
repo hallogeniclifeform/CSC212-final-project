@@ -27,10 +27,8 @@ Matrix::Matrix(std::string filename) {
         std::istringstream ss(line);
         ss >> this->rows;
         ss >> this->cols;
-        for(int i=0; i<3; i++){
-            ss >> row;
-            ss >> col;
-            ss >> data;
+        while(ss >> row, col, data) {
+            this->push_back(data, row, col);
         }
     }
 }
