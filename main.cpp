@@ -391,7 +391,7 @@ Matrix mult_matrix(Matrix mat1, Matrix mat2) {
         mat1_rows.clear();
 
         while(temp1 != nullptr) {
-            // If the row of the Node matches the row of the index in the product matrix
+            // If the row of the Node matches the col of the index in the product matrix
             // we are calculating, add it to the vector
             if (temp1->get_row() == prod_row)
             {

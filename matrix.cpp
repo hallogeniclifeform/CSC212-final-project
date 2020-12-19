@@ -4,6 +4,7 @@
 #include <fstream>
 #include <sstream>
 
+//base matrix constructor with all values set to zero.
 Matrix::Matrix(){
     this->head = nullptr;
     this->size = 0;
@@ -11,6 +12,7 @@ Matrix::Matrix(){
     this->cols = 0;
 }
 
+//matrix constructor where number of rows and columns are known.
 Matrix::Matrix(int rows, int cols) {
     this->head = nullptr;
     this->size = 0;
@@ -18,6 +20,7 @@ Matrix::Matrix(int rows, int cols) {
     this->cols = cols;
 }
 
+//matrix constructor that takes file containing sparse matrix as an argument.
 Matrix::Matrix(std::string filename) {
     std::ifstream filein(filename);
     int data, row, col;
@@ -46,7 +49,7 @@ Matrix::~Matrix(){
 }
 
 
-
+//function to push non-zero values of sparse matrix into linked list.
 void Matrix::push_back(int data, int row, int col){
     if(this->head == nullptr){
         this->head = new Node(data, row, col);
@@ -60,6 +63,7 @@ void Matrix::push_back(int data, int row, int col){
     this->size++;
 }
 
+//fucntions for retrieving private data members of Node class.
 Node* Matrix::get_head() {
     return this->head;
 }
@@ -77,6 +81,7 @@ int Matrix::get_cols() {
     return this->cols;
 }
 
+//function to output the product/sum/etc. of two sparse matrices to the console.
 void Matrix::print_matrix(int rows, int cols, std::string type){
     int print_array[rows][cols];
     Node* temp = this->head;
@@ -94,15 +99,15 @@ void Matrix::print_matrix(int rows, int cols, std::string type){
         }
     }
 
-    if(type == "add"){
+    if(type == "a"){
         std::cout << std::endl;
         std::cout << "The sum of the two matrices is: " <<  std::endl;
         std::cout << "-------------------------------" << std::endl;
-    }else if(type == "multiply"){
+    }else if(type == "m"){
         std::cout << std::endl;
         std::cout << "The product of the two matrices is: " <<  std::endl;
         std::cout << "-------------------------------" << std::endl;
-    }else if(type == "subtract"){
+    }else if(type == "s"){
         std::cout << std::endl;
         std::cout << "The difference of the two matrices is: " <<  std::endl;
         std::cout << "-------------------------------" << std::endl;
@@ -116,6 +121,7 @@ void Matrix::print_matrix(int rows, int cols, std::string type){
     }
 }
 
+//function to save product/sum/etc. of two sparse matrices to a new .txt file.
 void Matrix::save_matrix(std::string filename) {
     std::ofstream out_file(filename);
     Node* temp = this->head;
