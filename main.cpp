@@ -6,7 +6,7 @@
 #include <sstream>
 #include <ctime>
 
-Matrix add_matrix(Matrix mat1, Matrix mat2);
+/*Matrix add_matrix(Matrix mat1, Matrix mat2);
 Matrix subtract_matrix(Matrix mat1, Matrix mat2);
 Matrix mult_matrix(Matrix mat1, Matrix mat2);
 
@@ -439,3 +439,4 @@ Matrix mult_matrix(Matrix mat1, Matrix mat2) {
     
     return product;
 }
+*/

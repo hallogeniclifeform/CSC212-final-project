@@ -5,21 +5,19 @@
 class Matrix{
     private:
         Node* head;
-        int size;
-        int rows;
-        int cols;
 
     public:
         Matrix();
         ~Matrix();
         Matrix(int rows, int cols);
-        Matrix(std::string filename);
         
-        void push_back(int data, int row, int col);
-        int get_size();
-        int get_rows();
-        int get_cols();
-        Node* get_head();
-        void print_matrix(int rows, int cols, std::string type);
-        void save_matrix(std::string filename);
+        void add_header(int row, int col);
+        void add_element(HeaderNode row, HeaderNode col, int data);
+        void add_element(int row, int col, int data);
+        
+        Matrix add_to(Matrix mat);
+        Matrix cross_product(Matrix mat);
+        Matrix subtract_from(Matrix mat);
+
+        
 };
