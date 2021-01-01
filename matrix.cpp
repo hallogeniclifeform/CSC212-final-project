@@ -96,18 +96,6 @@ void Matrix::print_matrix(){
     }
 }
 
-//function to save product/sum/etc. of two sparse matrices to a new .txt file.
-void Matrix::save_matrix(std::string filename) {
-    std::ofstream out_file(filename);
-    Node* temp = this->head;
 
-    out_file << this->rows << " " << this->cols << std::endl;
-
-    for (int i=0; i<this->size; i++) {
-        out_file << temp->row << " " << temp->col << " " << temp->data << std::endl;
-        temp = temp->next;
-    }
-
-}
 
 

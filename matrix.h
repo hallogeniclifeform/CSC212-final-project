@@ -19,5 +19,5 @@ class Matrix{
         Matrix cross_product(Matrix mat);
         Matrix subtract_from(Matrix mat);
 
-        
+        void print_matrix();
 };
