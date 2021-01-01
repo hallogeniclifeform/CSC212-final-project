@@ -6,49 +6,37 @@
 
 //base matrix constructor with all values set to zero.
 Matrix::Matrix(){
-    this->head = nullptr;
-    this->size = 0;
-    this->rows = 0;
-    this->cols = 0;
+    this->head = new ElementNode();
 }
 
 //matrix constructor where number of rows and columns are known.
 Matrix::Matrix(int rows, int cols) {
-    this->head = nullptr;
-    this->size = 0;
-    this->rows = rows;
-    this->cols = cols;
-}
-
-//matrix constructor that takes file containing sparse matrix as an argument.
-Matrix::Matrix(std::string filename) {
-    std::ifstream filein(filename);
-    int data, row, col;
-	std::string line;
-
-    int val;
-
-    while(std::getline(filein, line)) {
-        std::istringstream ss(line);
-        ss >> this->rows;
-        ss >> this->cols;
-        while(std::getline(filein, line)) {
-            std::istringstream iss(line);
-            while(iss >> row >> col >> data) {
-                this->push_back(data, row, col);
-
-            }
+    HeaderNode* temp;
+    this->head = new ElementNode();
+    for (int i=0; i<rows; i++) {
+        if (this->head->down == nullptr) {
+            this->head->down = new HeaderNode(i, "row");
+        } else {
+            temp = this->head->down;
+            temp->down = new HeaderNode(i, "row");
         }
     }
-
-    filein.close();
+    for (int i=0; i<cols; i++){
+        if(this->head->right == nullptr) {
+            this->head->right = new HeaderNode(i, "col");
+        } else {
+            temp = this->head->right;
+            temp->right = new HeaderNode(i, "col");
+        }
+    }
 }
+
 
 Matrix::~Matrix(){
 
 }
 
-
+/*
 //function to push non-zero values of sparse matrix into linked list.
 void Matrix::push_back(int data, int row, int col){
     if(this->head == nullptr){
@@ -61,57 +49,44 @@ void Matrix::push_back(int data, int row, int col){
         tmp->next = new Node(data, row, col);
     }
     this->size++;
-}
-
-//fucntions for retrieving private data members of Node class.
-Node* Matrix::get_head() {
-    return this->head;
-}
+}*/
 
 
-int Matrix::get_size(){
-    return this->size;
+Matrix Matrix::add_to(Matrix mat){
+    Matrix sum;
+
+    return sum;
+};
+
+Matrix Matrix::cross_product(Matrix mat){
+    Matrix product;
+
+    return product;
 }
 
-int Matrix::get_rows() {
-    return this->rows;
+Matrix Matrix::subtract_from(Matrix mat){
+    Matrix diff;
+
+    return diff;
 }
 
-int Matrix::get_cols() {
-    return this->cols;
-}
 
 //function to output the product/sum/etc. of two sparse matrices to the console.
-void Matrix::print_matrix(int rows, int cols, std::string type){
-    int print_array[rows][cols];
+void Matrix::print_matrix(){
+    
+    std::vector< std::vector< int > > print_array;
+    std::vector< int > row;
     Node* temp = this->head;
+    int rows = this->head->row;
+    int cols = this->head->col;
 
     for(int i = 0; i < rows; i++){
         for(int j = 0; j < cols; j++){
-            if(temp->row == i && temp->col == j){
-                print_array[i][j] = temp->data;
-                if(temp->next != nullptr){
-                    temp = temp->next;
-                }
-            }else{
-                print_array[i][j] = 0;
-            }
+            
         }
     }
 
-    if(type == "a"){
-        std::cout << std::endl;
-        std::cout << "The sum of the two matrices is: " <<  std::endl;
-        std::cout << "-------------------------------" << std::endl;
-    }else if(type == "m"){
-        std::cout << std::endl;
-        std::cout << "The product of the two matrices is: " <<  std::endl;
-        std::cout << "-------------------------------" << std::endl;
-    }else if(type == "s"){
-        std::cout << std::endl;
-        std::cout << "The difference of the two matrices is: " <<  std::endl;
-        std::cout << "-------------------------------" << std::endl;
-    }
+    
 
     for(int i = 0; i < rows; i++){
         for(int j = 0; j < cols; j++){

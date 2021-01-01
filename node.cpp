@@ -12,7 +12,6 @@ Node::Node(){
 Node::Node(int row, int col){
     this->row = row;
     this->col = col;
-    
 }
 
 
@@ -29,7 +28,8 @@ int Node::get_col() {
 
 
 ElementNode::ElementNode(){
-    
+    this->row = 0;
+    this->col = 0;
 }
 
 ElementNode::ElementNode(int row, int col, int data) {

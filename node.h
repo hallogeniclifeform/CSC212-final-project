@@ -7,7 +7,11 @@ class Node{
         //private data members for each node.
         int row;
         int col;
+        int size;
+        HeaderNode* down;
+        HeaderNode* right;
         
+        friend class Matrix;
     public:
         //constructor for each node.
         Node();
@@ -24,12 +28,14 @@ class Node{
 
 class ElementNode: public Node {
     private:
+        int row, col;
         int data;
         ElementNode* right;
         ElementNode* down;
         HeaderNode* row_header;
         HeaderNode* col_header;
     
+        friend class Matrix;
     public:
         ElementNode();
         ~ElementNode();
@@ -52,10 +58,12 @@ class ElementNode: public Node {
 
 class HeaderNode: public Node {
     private:
+        int idx;
         ElementNode* next;
         bool isRowHeader;
         bool isColHeader = !isRowHeader;
 
+        friend class Matrix;
     public:
         HeaderNode();
         ~HeaderNode();
